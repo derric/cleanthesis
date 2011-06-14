@@ -1,0 +1,502 @@
+% **************************************************
+% Clean Thesis
+% -- A LaTeX Style for Thesis Documents --
+% 
+% Copyright (C) 2011 Ricardo Langner
+% **************************************************
+%
+% Readme:
+% ----------------------------------------
+% *** Clean, Simple, Elegant ***
+% "Clean Thesis" is a LaTeX style for thesis documents, developed
+% for my diplom thesis (Diplomarbeit). The style can be understood
+% as my personal compromise — a typical clean looking scientific
+% document combined and polished with minor beautifications.
+% 
+% The design of this "Clean Thesis" style is inspired
+% by user guide documents from Apple Inc.
+% 
+% Note: If you are looking for an exact and correct style regarding
+% typographic rules, please have a look at the "Classic Thesis Style"
+% (see http://www.miede.de/index.php?page=classicthesis).
+% 
+% *** Donation = Postcard ***
+% Based on the idea of Andr\'e Miede: If you like the "Clean Thesis"
+% style I would be very pleased about a donation in the form of a
+% POSTCARD. You can find my address at http://cleanthesis.der-ric.de/
+% as well as in the file Clean-Thesis.pdf. I am going to collect all
+% postcards and exhibit them at the website I mentioned.
+% 
+% *** Idea and Inspiration ***
+% The idea of providing my customized style for thesis documents
+% passed through my mind while writing my own thesis. Motivated and
+% inspired by the superb "Classic Thesis Style"
+% (see http://www.miede.de/index.php?page=classicthesis) by Andr\'e Miede
+% (thanks to Andr\'e for doing a great job) I decided to collect all
+% design and style related functionality in a separate LaTeX style and
+% provide this style to other thesis writers.
+% 
+% 
+% License Information:
+% ----------------------------------------
+% "Clean Thesis" is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% "Clean Thesis" is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+% **************************************************
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cleanthesis}[2011/05/27 v0.1b Clean-looking thesis style inspired by Apple's user guide documents]
+
+\RequirePackage{ifthen}
+	\newboolean{@sansserif}
+	\newboolean{@colorbw}
+	\newboolean{@colorreduced}
+	\newboolean{@figurecaptionoutside}
+	\newboolean{@sectionlabeloutside}
+	\newboolean{@subsectionlabeloutside}
+
+% **************************************************
+% Style Options
+% **************************************************
+\DeclareOption{sansserif}{\setboolean{@sansserif}{true}}
+\DeclareOption{colorbw}{\setboolean{@colorbw}{true}}
+\DeclareOption{colorreduced}{\setboolean{@colorreduced}{true}}
+\DeclareOption{figurecaptionoutside}{\setboolean{@figurecaptionoutside}{true}}
+\DeclareOption{sectionlabeloutside}{\setboolean{@sectionlabeloutside}{true}}
+\DeclareOption{subsectionlabeloutside}{\setboolean{@subsectionlabeloutside}{true}}
+\DeclareOption*{%
+	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
+}
+\ProcessOptions\relax % executes the code for each option
+
+% **************************************************
+% Color Definitions
+% **************************************************
+\RequirePackage[dvipsnames]{xcolor}
+
+% general clean thesis colors
+\definecolor{cthesisblack}{gray}{.05}
+\definecolor{cthesisgraylight}{gray}{.8}
+\definecolor{cthesismaincolor}{cmyk}{1, .50, .10, .01}
+\definecolor{cthesisaccessorycolor}{cmyk}{.18, .98, .18, 0}
+
+% footer colors
+\colorlet{cthesiscolorfooterpage}{cthesisblack}
+\colorlet{cthesiscolorfooterline}{cthesismaincolor}
+\colorlet{cthesiscolorfootermark}{cthesisblack}
+\colorlet{cthesiscolorfootertitle}{cthesismaincolor}
+
+% chapter colors
+\colorlet{cthesiscolorchapternum}{cthesismaincolor}
+\colorlet{cthesiscolorchapterline}{cthesismaincolor}
+
+% text colors
+\colorlet{cthesiscolorsection}{cthesismaincolor}
+\colorlet{cthesiscolorsubsection}{cthesismaincolor}
+\colorlet{cthesiscolorfloatlabel}{cthesisaccessorycolor}
+\colorlet{cthesiscolorlistlabel}{cthesismaincolor}
+
+\ifthenelse{\boolean{@colorbw}}%
+	{%
+		\setboolean{@colorreduced}{true}%
+		%
+		\colorlet{cthesiscolorchapternum}{cthesisblack}%
+		\colorlet{cthesiscolorchapterline}{cthesisblack}%
+		%
+		\colorlet{cthesiscolorsection}{cthesisblack}%
+		\colorlet{cthesiscolorfloatlabel}{cthesisblack}%
+	}{}
+\ifthenelse{\boolean{@colorreduced}}%
+	{%
+		\colorlet{cthesiscolorfooterline}{cthesisblack}
+		\colorlet{cthesiscolorfootertitle}{cthesisblack}
+		\colorlet{cthesiscolorsubsection}{cthesisblack}
+		\colorlet{cthesiscolorlistlabel}{cthesisblack}
+	}{}
+
+% **************************************************
+% Font Definitions (see http://www.tug.dk/FontCatalogue/)
+% **************************************************
+\RequirePackage[T1]{fontenc}		% font types and character verification
+\ifthenelse{\boolean{@sansserif}}%
+	{%
+		% Using sans-serif fonts
+		%
+		%\RequirePackage{helvet}	% Font:	Helvetica
+		%\RequirePackage{nimbus}	% Font:	Nimbus Sans, a clone of the Helvetica
+		\RequirePackage{tgheros}	% Font:	TEX Gyre Heros
+		%\RequirePackage{libertine}	% Font:	Biolinum, the standard sans serif typeface with the Libertine package
+		%\RequirePackage[scaled]{berasans} % Font:	Bera Sans, a a version of Bitstream Vera Sans slightly enhanced
+		\renewcommand*\familydefault{\sfdefault}%
+	}{%
+		% Using serif fonts
+		%
+		\RequirePackage{lmodern}	% font set: Latin Modern
+		\RequirePackage{charter}	% font set: Charter
+		%\RequirePackage{fourier}	% font set: (basically improved utopia)
+	}
+
+% **************************************************
+% Load Packages
+% **************************************************
+\RequirePackage{fixltx2e}			% packages provides fixes to LaTeX2e
+\RequirePackage{microtype}			% typographic tuning
+\RequirePackage{setspace}			% for line spacing, e.g. \onehalfspacing
+\RequirePackage[]{graphicx}			% graphics import features
+\RequirePackage{fancyhdr}			% for header and footer modifications
+\RequirePackage{enumitem}			% for simple list modifications
+\RequirePackage{blindtext}		% package for blind text
+\RequirePackage{textcomp}			% different symbols
+\RequirePackage{hyperref} 			% interactive link inside the document
+\RequirePackage{titlesec}			% to modify sectioning commands, e.g. chapter
+%
+\RequirePackage[					% modify figure and table captions
+	font={small}, 					% 	- small font size
+	labelfont={bf,sf,color=cthesiscolorfloatlabel},% 	- label in bold, sans-serif and magenta
+	labelsep=endash,				% 	- separator
+	singlelinecheck=false			% 	- no centered single-lined captions
+]{caption}[2008/08/24]
+\ifthenelse{\boolean{@figurecaptionoutside}}%
+	{%
+		\DeclareCaptionFormat{llap}{\llap{#1#2}#3\par}%
+		\captionsetup{format=llap,labelsep=quad,singlelinecheck=false}%
+	}{}
+%
+\RequirePackage[					% page layout modifications
+	paper=a4paper,					% 	- use A4 paper size
+	%scale={0.86,0.94},				% 	- total body size (h,v)
+	%scale={0.86,0.94},				% 	- total body size (h,v)
+	nohead,							% 	- no header
+	includefoot,					% 	- include footer space
+	includemp,						% 	- include side note space
+	bindingoffset=0.5cm,			% 	- binding correction
+	top=2.25cm,						% 	- total body: top margin
+	left=3.75cm,					% 	- total body: left margin (odd pages)
+	right=0.75cm,					% 	- total body: right margin (odd pages)
+	bottom=1.5cm,					% 	- total body: bottom margin
+	marginparwidth=1.75cm,			% 	- width for side note 
+	marginparsep=10pt,				% 	- space between notes and body text (content)
+	footskip=2cm,					% 	- footer skip size
+]{geometry}
+%
+\RequirePackage[					% advanced quotes
+	strict=true,					% 	- warning are errors now
+	style=german					% 	- german quotes
+]{csquotes}
+%
+\RequirePackage[					% use biblatex for bibliography
+%	backend=biber,					% 	- use biber backend (bibtex replacement)
+	bibencoding=utf8,				% 	- use auto file encode
+	style=alphabetic,				% 	- use alphabetic (or numeric) bib style
+	natbib=true,					% 	- allow natbib commands
+	hyperref=true,					% 	- activate hyperref support
+	backref=true,					% 	- activate backrefs
+	isbn=false,						% 	- don't show isbn tags
+	url=false,						% 	- don't show url tags
+	doi=false,						% 	- don't show doi tags
+	urldate=long,					% 	- display type for dates
+	maxnames=3,%
+	minnames=1,%
+	maxbibnames=5,%
+	minbibnames=3,%
+	maxcitenames=2,%
+	mincitenames=1%
+]{biblatex}
+\bibliography{bib-refs}
+\DefineBibliographyStrings{ngerman}{%
+	andothers = {{et\,al\adddot}}, % 'et al.' instead of 'u.a.'
+	backrefpage = {{zitiert auf Seite}},%
+	backrefpages = {{zitiert auf den Seiten}},%
+}
+
+% **************************************************
+% Text Format
+% **************************************************
+\setstretch{1.2}					% value for line spacing, use \setstretch{} or \singlespacing or \onehalfspacing or \doublespacing
+\setlength{\parindent}{0em}			% value for paragraph indentation
+\clubpenalty = 10000				% prevent single lines at the beginning of a paragraph (Schusterjungen)
+\widowpenalty = 10000				% prevent single lines at the end of a paragraph (Hurenkinder)
+\displaywidowpenalty = 10000		% 
+
+% **************************************************
+% List Definitions
+% **************************************************
+\newenvironment{my_list}%
+	{\begin{enumerate}%
+		\setlength{\itemsep}{1pt}%
+		\setlength{\parskip}{0pt}%
+		\setlength{\parsep}{0pt}%
+	}%
+	{\end{enumerate}}
+%
+\newenvironment{my_list_num}
+	{\begin{enumerate}[topsep=-5pt,partopsep=0pt,parsep=2pt,itemsep=3pt]}
+	{\end{enumerate}}%
+
+\newenvironment{my_list_item}
+	{\begin{itemize}[topsep=-5pt,partopsep=0pt,parsep=2pt,itemsep=3pt]}
+	{\end{itemize}}%
+
+\newenvironment{ct_version_list}
+	{\begin{itemize}[topsep=-5pt,partopsep=0pt,parsep=2pt,itemsep=3pt]}
+	{\end{itemize}}%
+	
+	\newenvironment{ct_version_list_sub}
+		{\begin{itemize}[topsep=-0pt,partopsep=0pt,parsep=0pt,itemsep=0pt]}
+		{\end{itemize}}%
+
+\renewcommand{\descriptionlabel}[1]{%
+	\hspace*{\labelsep}%
+	\color{cthesiscolorlistlabel}%
+	\tgherosfont\textbf{#1}%
+}
+\newenvironment{my_list_desc}
+	{\begin{description}[%
+		style=multiline,%
+		topsep=-5pt,%
+		leftmargin=3cm,%
+		partopsep=0pt,%
+		parsep=2pt,%
+		itemsep=3pt%
+	]}
+	{\end{description}}%
+
+% **************************************************
+% Header and Footer
+% **************************************************
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{%
+	\markboth{%
+		\footnotesize%
+		{\color{cthesiscolorfootermark}\textbf{\chaptername\ \thechapter}}%
+		\quad%
+		{\color{cthesiscolorfootertitle}#1}%
+	}{}%
+}
+\renewcommand{\sectionmark}[1]{%
+	\markright{%
+		\footnotesize%
+		{\color{cthesiscolorfootermark}\textbf{\thesection}}%
+		\quad%
+		{\color{cthesiscolorfootertitle}#1}%
+	}%
+}
+%
+\fancypagestyle{plain}{%
+	\fancyhf{}
+	\fancyfootoffset[OR]{1.85cm}
+	\fancyfoot[OR]{%
+		{\ }\tgherosfont%
+		{\color{cthesiscolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
+			\color{cthesiscolorfooterpage}\normalsize\textbf{\thepage}%
+		\end{minipage}%
+	}
+	\fancyfootoffset[EL]{1.85cm}
+	\fancyfoot[EL]{%
+		\tgherosfont%
+		\begin{minipage}[b]{1.5cm}%
+			\raggedleft\color{cthesiscolorfooterpage}\normalsize\textbf{\thepage}%
+		\end{minipage}%
+		\hspace*{10pt}{\color{cthesiscolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+	}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+}
+%
+\fancypagestyle{maincontentstyle}{%
+	\pagestyle{plain}
+	\fancyhf{}
+	\fancyfootoffset[OR]{1.85cm}
+	\fancyfoot[OR]{%
+		{\ }\tgherosfont\footnotesize%
+		\rightmark%
+		\hspace*{0.75cm}{\color{cthesiscolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
+			\color{cthesiscolorfooterpage}\normalsize\textbf{\thepage}%
+		\end{minipage}%
+	}
+	\fancyfootoffset[EL]{1.85cm}
+	\fancyfoot[EL]{%
+		\tgherosfont\footnotesize%
+		\begin{minipage}[b]{1.5cm}%
+			\raggedleft\color{cthesiscolorfooterpage}\normalsize\textbf{\thepage}%
+		\end{minipage}%
+		\footnotesize%
+		\hspace*{10pt}{\color{cthesiscolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+		\hspace*{0.75cm}\leftmark%
+	}
+}
+
+% **************************************************
+% New Commands
+% **************************************************
+% TODO command
+\definecolor{color_todo}{rgb}{.6,.8,.2}
+\newcommand{\TODO}[1]{{\color{color_todo}\textbf{[TODO #1]}}}
+%
+%
+% ref commands, e.g. for images, tables and text labels
+% --------------------------------------------------
+% RESULT = (siehe Tab. 12.4)
+\newcommand{\tabref}[1]{(siehe Tab.~\ref{#1})}
+%
+% RESULT = (siehe Tab. 12.4)
+\newcommand{\tableref}[1]{(siehe Tab.~\ref{#1} Seite~\pageref{#1})}
+%
+% --------------------------------------------------
+% RESULT = (siehe 3.4)
+\newcommand{\tref}[1]{(siehe \ref{#1})}
+%
+% RESULT = Abschnitt 3.4
+\newcommand{\treft}[1]{Abschnitt~\ref{#1}}
+%
+% RESULT = (siehe 3.4, Seite 12)
+\newcommand{\textref}[1]{(siehe \ref{#1}, Seite~\pageref{#1})}
+%
+% RESULT = Abschnitt 3.4 (siehe Seite 12)
+\newcommand{\textreft}[1]{Abschnitt~\ref{#1} (siehe Seite~\pageref{#1})}
+%
+% --------------------------------------------------
+% RESULT = (siehe Abb. 10.4)
+\newcommand{\fref}[1]{(siehe Abb.~\ref{#1})}
+%
+% RESULT = (siehe Abb. 10.4 b)
+\newcommand{\frefadd}[2]{(siehe Abb.~\ref{#1}~#2)}
+%
+% RESULT = (siehe Abb. 10.4, Seite 12)
+\newcommand{\figref}[1]{(siehe Abb.~\ref{#1}, Seite~\pageref{#1})}
+%
+% RESULT = (siehe Abb. 10.4 b, Seite 12)
+\newcommand{\figrefadd}[2]{(siehe Abb.~\ref{#1}~#2, Seite~\pageref{#1})}
+%
+% RESULT = Abbildung 10.4
+\newcommand{\figreft}[1]{Abbildung~\ref{#1}}
+%
+% RESULT = Abbildung 10.4 b
+\newcommand{\figrefaddt}[2]{Abbildung~\ref{#1}~#2}
+%
+% --------------------------------------------------
+% RESULT = (siehe Seite 12)
+\newcommand{\seepage}[1]{(siehe Seite~\pageref{#1})}
+
+
+% **************************************************
+% Sectioning Commands
+% **************************************************
+% own font definitions
+\newcommand{\helv}{\fontfamily{phv}\fontsize{9}{11}\selectfont}
+\newcommand{\book}{\fontfamily{pbk}\fontseries{m}\fontsize{11}{13}\selectfont}
+\newcommand{\tgherosfont}{\fontfamily{qhv}\selectfont}
+\newcommand{\thesischapterfont}{\color{cthesisblack}\huge \fontfamily{phv}\selectfont}
+%\newcommand{\thesissectionfont}{\color{cthesismaincolor}\LARGE\bfseries \tgherosfont}
+\newcommand{\thesissectionfont}{\color{cthesiscolorsection}\LARGE \tgherosfont}
+\newcommand{\thesissubsectionfont}{\color{cthesiscolorsubsection}\Large \tgherosfont}
+%
+% headings
+\setkomafont{chapter}{\thesischapterfont} % for chapter entries
+\setkomafont{section}{\thesissectionfont} % for section entries
+\setkomafont{subsection}{\thesissubsectionfont} % for section entries
+\addtokomafont{subsubsection}{\tgherosfont}
+\addtokomafont{paragraph}{\tgherosfont}
+
+%\setkomafont{subsection}{\large} % for subsection entries
+
+% usage: \titleformat{⟨command)}[⟨shape⟩]{⟨format⟩}{⟨label⟩}{⟨sep⟩}{⟨before⟩}[⟨after⟩]
+\titleformat{\chapter}[display]%
+	{\usekomafont{chapter}}%
+	{%
+		\vspace{-8em}
+		\raggedleft{%
+			{\color{cthesiscolorchapterline}\rule[-5pt]{2pt}{5cm}}\quad%
+			{\color{cthesiscolorchapternum}\fontsize{60}{60}\selectfont\thechapter}%
+		}%
+	}%
+	{-2.1em}%
+	{\raggedright}%
+	[]
+
+% format the section
+\ifthenelse{\boolean{@sectionlabeloutside}}%
+	{%
+		\titleformat{\section}[hang]%
+			{\usekomafont{section}}%
+			{\color{cthesisblack}\thesection\hspace*{10pt}}%
+			{0pt}%
+			{\raggedright}%
+			[]
+	}{%
+		\titleformat{\section}[block]%
+			{\usekomafont{section}}%
+			{\color{cthesisblack}\thesection\hspace*{10pt}}%
+			{0pt}%
+			{\raggedright}%
+			[]
+	}
+
+% format the subsection
+\ifthenelse{\boolean{@subsectionlabeloutside}}%
+	{%
+		\titleformat{\subsection}[hang]%
+			{\usekomafont{subsection}}%
+			{\color{cthesisblack}\thesubsection\hspace*{10pt}}%
+			{0pt}%
+			{\raggedright}%
+			[]
+	}{%
+		\titleformat{\subsection}[block]%
+			{\usekomafont{subsection}}%
+			{\color{cthesisblack}\thesubsection\hspace*{10pt}}%
+			{0pt}%
+			{\raggedright}%
+			[]
+	}
+
+% Clean chapter quotations
+\newcommand{\hugequote}{%
+	{\book\fontsize{75}{80}\selectfont%
+	\hspace*{-.475em}\color{cthesisgraylight}%
+	\textit{\glqq}%
+	\vskip -.26em}%
+}
+\newcommand{\cleanchapterquote}[3]{%
+	\begin{minipage}{.865\textwidth}%
+		\begin{flushright}
+			\begin{minipage}{.65\textwidth}%
+				\begin{flushleft}
+					{\hugequote}\textit{#1}
+				\end{flushleft}
+	    		\begin{flushright}
+    				--- \textbf{#2} \\
+    				#3
+		    	\end{flushright}
+		    \end{minipage}%
+		\end{flushright}
+	\end{minipage}%	  
+	\bigskip
+}
+
+% Clean Quotation environment
+\newenvironment{thesis_quotation}%
+	{%
+	\begin{minipage}{.865\textwidth}%
+		\begin{flushright}
+			\begin{minipage}{.95\textwidth}%
+	}%
+	{%
+			\end{minipage}%
+		\end{flushright}
+	\end{minipage}%
+	}%
+
+% Clean signs around word origins in definitions
+%\newcommand{\cthesisorigin}[1]{\textsf{\textlangle}#1\textsf{\textrangle}}
+
