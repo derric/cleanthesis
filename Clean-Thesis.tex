@@ -1,7 +1,7 @@
 % **************************************************
 % Clean Thesis
 % -- A LaTeX Style for Thesis Documents --
-% 
+%
 % Copyright (C) 2011 Ricardo Langner
 % **************************************************
 %
@@ -10,23 +10,23 @@
 % *** Clean, Simple, Elegant ***
 % "Clean Thesis" is a LaTeX style for thesis documents, developed
 % for my diplom thesis (Diplomarbeit). The style can be understood
-% as my personal compromise — a typical clean looking scientific
+% as my personal compromise Ã¢â‚¬â€ a typical clean looking scientific
 % document combined and polished with minor beautifications.
-% 
+%
 % The design of this "Clean Thesis" style is inspired
 % by user guide documents from Apple Inc.
-% 
+%
 % Note: If you are looking for an exact and correct style regarding
 % typographic rules, please have a look at the "Classic Thesis Style"
 % (see http://www.miede.de/index.php?page=classicthesis).
-% 
+%
 % *** Donation = Postcard ***
 % Based on the idea of Andr\'e Miede: If you like the "Clean Thesis"
 % style I would be very pleased about a donation in the form of a
 % POSTCARD. You can find my address at http://cleanthesis.der-ric.de/
 % as well as in the file Clean-Thesis.pdf. I am going to collect all
 % postcards and exhibit them at the website I mentioned.
-% 
+%
 % *** Idea and Inspiration ***
 % The idea of providing my customized style for thesis documents
 % passed through my mind while writing my own thesis. Motivated and
@@ -35,22 +35,22 @@
 % (thanks to Andr\'e for doing a great job) I decided to collect all
 % design and style related functionality in a separate LaTeX style and
 % provide this style to other thesis writers.
-% 
-% 
+%
+%
 % License Information:
 % ----------------------------------------
 % "Clean Thesis" is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation, either version 3 of the License, or
 % (at your option) any later version.
-% 
+%
 % "Clean Thesis" is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 % GNU General Public License for more details.
-% 
+%
 % You should have received a copy of the GNU General Public License
-% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+% along with this program. If not, see <http://www.gnu.org/licenses/>.
 % **************************************************
 
 
@@ -70,7 +70,7 @@
 	titlepage=on,				% own page for each title page
 	captions=tableabove,		% display table captions above the float env
 	draft=false,				% value for draft version
-]{scrreprt}%
+]{scrbook}% scrreprt
 
 % **************************************************
 % Debug LaTeX Information
@@ -80,11 +80,15 @@
 % **************************************************
 % Information and Commands for Reuse
 % **************************************************
-\newcommand{\thesisTitle}{The Clean Thesis Style}
-\newcommand{\thesisName}{Ricardo Langner}
-\newcommand{\thesisSubject}{Documentation}
-\newcommand{\thesisDate}{June 8, 2011}
+\newcommand{\thesisTitle}{Novel Interaction and Visualization Techniques
+for Node-Link Diagram Editing and Exploration}
+\newcommand{\thesisName}{Mathias Frisch}
+\newcommand{\thesisSubject}{Dissertation}
+\newcommand{\thesisDate}{January, 2012}
 \newcommand{\thesisVersion}{0.1b}
+
+\newcommand{\thesisFirstSupervisor}{Prof. Dr. Raimund Dachselt}
+\newcommand{\thesisSecondSupervisor}{}
 
 \newcommand{\thesisFirstReviewer}{Jane Doe}
 \newcommand{\thesisFirstReviewerUniversity}{\protect{Clean Thesis Style University}}
@@ -94,41 +98,67 @@
 \newcommand{\thesisSecondReviewerUniversity}{\protect{Clean Thesis Style University}}
 \newcommand{\thesisSecondReviewerDepartment}{Department of Clean Thesis Style}
 
-\newcommand{\thesisFirstSupervisor}{Jane Doe}
-\newcommand{\thesisSecondSupervisor}{John Smith}
 
-\newcommand{\thesisUniversity}{\protect{Clean Thesis Style University}}
-\newcommand{\thesisUniversityDepartment}{Department of Clean Thesis Style}
-\newcommand{\thesisUniversityInstitute}{Institut for Clean Thesis Dev}
-\newcommand{\thesisUniversityGroup}{Clean Thesis Group (CTG)}
-\newcommand{\thesisUniversityCity}{City}
-\newcommand{\thesisUniversityStreetAddress}{Street address}
-\newcommand{\thesisUniversityPostalCode}{Postal Code}
+
+\newcommand{\thesisUniversity}{\protect{Otto-von-Guericke-University Magdeburg}}
+\newcommand{\thesisUniversityDepartment}{Department of Computer Science}
+\newcommand{\thesisUniversityInstitute}{Institute for Simulation and Computer Graphics}
+\newcommand{\thesisUniversityGroup}{User Interface \& Software Engineering Group}
+\newcommand{\thesisUniversityCity}{Magdeburg}
+\newcommand{\thesisUniversityStreetAddress}{Universit\"atsplatz 2}
+\newcommand{\thesisUniversityPostalCode}{39104}
+
+%% figure references
+\newcommand{\F}[1]{Figure~\ref{#1}}
+\newcommand{\f}[2][]{Figure~\ref{#2} #1}
+\newcommand{\Fb}[2][]{Figure~\ref{#2} (#1)}
+\newcommand{\s}[2][]{Section~\ref{#2}#1}
+%\newcommand{\cha}[2][]{Chapter~\ref{#2}#1}
+\newcommand{\tecterm}[2][]{\textit{#2}#1}
+
+
 
 % **************************************************
 % Load and Configure Packages
 % **************************************************
-\usepackage[utf8]{inputenc}		% defines file's character encoding
+%\usepackage[utf8]{inputenc}		% defines file's character encoding
 \usepackage[english]{babel} % babel system, adjust the language of the content
 \usepackage[					% clean thesis style
-	%sansserif,					% - use sans serif font family
+	%sansserif,					% -use sans serif font family
 	%colorreduced,				% - controls the use of colors; use colorreduced or colorbw
 	%figurecaptionoutside,		% - puts the label of figures into the margin
 	sectionlabeloutside,		% - puts the label of sections into the margin
-	subsectionlabeloutside,		% - puts the label of subsections into the margin
+	%subsectionlabeloutside,		% - puts the label of subsections into the margin
 ]{cleanthesis}
 
 \hypersetup{					% setup the hyperref-package options
 	pdftitle={\thesisTitle},	% 	- title (PDF meta)
 	pdfsubject={\thesisSubject},% 	- subject (PDF meta)
 	pdfauthor={\thesisName},	% 	- author (PDF meta)
-	plainpages=false,			% 	- 
+	plainpages=false,			% 	-
 	colorlinks=false,			% 	- colorize links?
 	pdfborder={0 0 0},			% 	-
 	breaklinks=true,			% 	- allow line break inside links
 	bookmarksnumbered=true,		%
 	bookmarksopen=true			%
 }
+
+\usepackage{pdfpages}
+\usepackage{xcolor}
+\usepackage{soul}
+
+%% yellow marked text
+\definecolor{yellow_highlight}{rgb}{1,1,0}
+\newcommand{\Y}[1]{\hl{#1}}
+
+
+
+\makeatletter
+\newcommand{\labitem}[2]{%
+\def\@itemlabel{\textbf{#1}}
+\item
+\def\@currentlabel{#1}\label{#2}}
+\makeatother
 
 % **************************************************
 % Document CONTENT
@@ -169,24 +199,53 @@
 \setcounter{page}{1}			% set page counter
 \pagestyle{maincontentstyle} 	% fancy header and footer
 
-\input{content/chapter-introduction} % INCLUDE: introduction
-\input{content/chapter-related-work} % INCLUDE: related work
-\input{content/chapter-system}	% INCLUDE: system
-\input{content/chapter-concepts} % INCLUDE: concepts
-\input{content/chapter-conclusion} % INCLUDE: conclusion
+
+%\input{content/chapter-introduction} % INCLUDE: introduction
+\input{content/chapter1-motivation}
+
+\part{Research Background}
+\label{part:background}
+
+\input{content/chapter2-researchBackground}	
+\input{content/chapter3-devicesTechnologies}	
+\input{content/chapter4-requirements}
+
+%\end{part}
+\begin{part}{Creating and Editing \\Node-Link Diagrams}
+\input{content/chapter5-relatedWork}
+\input{content/chapter6-diagramEditing}	
+\input{content/chapter7-diagramLayouts}	
+\input{content/chapter8-pensPaper}	
+\end{part}
+\begin{part}{Exploring and Analyzing \\Node-Link Diagrams}
+\input{content/chapter9-relatedWork}
+\input{content/chapter10-offscreen}	
+\input{content/chapter11-offscreentouch}		
+\end{part}
+\begin{part}{Conclusions \& Outlook}
+\input{content/chapter12-contributions}
+%\input{content/chapter13-discussion}	
+\input{content/chapter14-outlook}	
+\end{part}
 \cleardoublepage
 
 % --------------------------
 % Back matter
 % --------------------------
+
+
+%\printbibheading
+\cleardoublepage
+
+
 {%
 \setstretch{1.1}
 \renewcommand{\bibfont}{\normalfont\small}
 \setlength{\biblabelsep}{0pt}
 \setlength{\bibitemsep}{0.5\baselineskip plus 0.5\baselineskip}
-\nocite{*}
+%\nocite{*}
 \printbibliography[nottype=online]
-\printbibliography[heading=subbibliography,title={Webseiten},type=online,prefixnumbers={@}]
+\printbibliography[heading=subbibliography,title={Websites},type=online,prefixnumbers={@}]
 }
 \cleardoublepage
 
@@ -196,7 +255,13 @@
 \listoftables
 \cleardoublepage
 
-\input{content/colophon}
+\begin{appendix}
+\input{content/appendixA}
+\input{content/appendixB}
+\input{content/appendixC}
+\end{appendix}
+
+%\input{content/colophon}
 \cleardoublepage
 
 \input{content/declaration}
