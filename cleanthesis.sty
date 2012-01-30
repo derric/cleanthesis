@@ -94,6 +94,11 @@
 \colorlet{cthesiscolorfootermark}{cthesisblack}
 \colorlet{cthesiscolorfootertitle}{cthesismaincolor}
 
+% part colors
+\colorlet{cthesiscolorpartnum}{cthesisblack}
+\colorlet{cthesiscolorpartline}{cthesisblack}
+\colorlet{cthesiscolorparttext}{cthesismaincolor}
+
 % chapter colors
 \colorlet{cthesiscolorchapternum}{cthesismaincolor}
 \colorlet{cthesiscolorchapterline}{cthesismaincolor}
@@ -161,7 +166,7 @@
 \RequirePackage[					% modify figure and table captions
 	font={small}, 					% 	- small font size
 	labelfont={bf,sf,color=cthesiscolorfloatlabel},% 	- label in bold, sans-serif and magenta
-	labelsep=endash,				% 	- separator
+	labelsep=endash,				% 	- separator: none, colon, period, space, quad, newline, endash
 	singlelinecheck=false			% 	- no centered single-lined captions
 ]{caption}[2008/08/24]
 \ifthenelse{\boolean{@figurecaptionoutside}}%
@@ -396,12 +401,15 @@
 \newcommand{\helv}{\fontfamily{phv}\fontsize{9}{11}\selectfont}
 \newcommand{\book}{\fontfamily{pbk}\fontseries{m}\fontsize{11}{13}\selectfont}
 \newcommand{\tgherosfont}{\fontfamily{qhv}\selectfont}
+\newcommand{\thesispartlabelfont}{\color{cthesiscolorpartnum}\book\fontsize{60}{60}\selectfont}
+\newcommand{\thesispartfont}{\color{cthesiscolorparttext}\huge \tgherosfont\selectfont}
 \newcommand{\thesischapterfont}{\color{cthesisblack}\huge \fontfamily{phv}\selectfont}
 %\newcommand{\thesissectionfont}{\color{cthesismaincolor}\LARGE\bfseries \tgherosfont}
 \newcommand{\thesissectionfont}{\color{cthesiscolorsection}\LARGE \tgherosfont}
 \newcommand{\thesissubsectionfont}{\color{cthesiscolorsubsection}\Large \tgherosfont}
 %
 % headings
+\setkomafont{part}{\thesispartfont} % for chapter entries
 \setkomafont{chapter}{\thesischapterfont} % for chapter entries
 \setkomafont{section}{\thesissectionfont} % for section entries
 \setkomafont{subsection}{\thesissubsectionfont} % for section entries
@@ -411,6 +419,28 @@
 %\setkomafont{subsection}{\large} % for subsection entries
 
 % usage: \titleformat{<command)}[<shape>]{<format>}{<label>}{<sep>}{<before>}[<after>]
+
+% formats the part structure
+\titleclass{\part}{top}
+\assignpagestyle{\part}{empty}
+\titleformat{\part}[display]%
+	{\usekomafont{part}}%
+	{%
+		\raggedleft{%
+			{%
+				\thesispartlabelfont%
+				\partname\ \thepart\quad%
+			}%
+			{%
+				\color{cthesiscolorpartline}%
+				\hspace*{-225pt}\rule[20pt]{600pt}{2pt}%
+			}%
+		}%
+	}%
+	{0em}%
+	{\raggedleft}%
+	[]
+
 \titleformat{\chapter}[display]%
 	{\usekomafont{chapter}}%
 	{%
