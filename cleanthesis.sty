@@ -2,7 +2,7 @@
 % Clean Thesis
 % -- A LaTeX Style for Thesis Documents --
 % 
-% Copyright (C) 2011 Ricardo Langner
+% Copyright (C) 2011-2012 Ricardo Langner
 % **************************************************
 %
 % Readme:
@@ -53,114 +53,166 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 % **************************************************
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{cleanthesis}[2011/05/27 v0.1b Clean-looking thesis style inspired by Apple's user guide documents]
-
-%\RequirePackage{xkvview}
-
-%\RequirePackage{xkeyval}
-
-% OPTIONS and VALUES
-% sansserif = true|false
-% colormode = full|reduced|bw
-% figurecaptionhang = true|false
-% sectionhang = true|false
-% subsectionhang = true|false
-% figuresep = none|colon|period|space|quad|newline|endash
-
-
-% \define@choicekey*[ct]{warning}{errorlevel}{info,warning,error}[info]{}
-% \setkeys{warning}{errorlevel=info}
-% \DeclareOptionX*{
-	% \PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
-% }
-%\ProcessOptionsX
-
-
-
-\RequirePackage{ifthen}
-	\newboolean{@sansserif}
-	\newboolean{@colorbw}
-	\newboolean{@colorreduced}
-	\newboolean{@figurecaptionoutside}
-	\newboolean{@sectionlabeloutside}
-	\newboolean{@subsectionlabeloutside}
-
+\ProvidesPackage{cleanthesis}[2012/02/01 v0.2 Clean-looking thesis style inspired by Apple's user guide documents]
+%
 % **************************************************
-% Style Options
+% Package options
 % **************************************************
-\DeclareOption{sansserif}{\setboolean{@sansserif}{true}}
-\DeclareOption{colorbw}{\setboolean{@colorbw}{true}}
-\DeclareOption{colorreduced}{\setboolean{@colorreduced}{true}}
-\DeclareOption{figurecaptionoutside}{\setboolean{@figurecaptionoutside}{true}}
-\DeclareOption{sectionlabeloutside}{\setboolean{@sectionlabeloutside}{true}}
-\DeclareOption{subsectionlabeloutside}{\setboolean{@subsectionlabeloutside}{true}}
-\DeclareOption*{%
+% 
+% -- process all available package options
+%
+%
+% The xkeyval package enables us to handle for example key-value pairs
+% in an easy way
+\RequirePackage{xkeyval}
+
+% OPTION sansserif
+% --> values = true|false
+\define@boolkey[ct]{cthesis}{sansserif}[true]{}
+\setkeys[ct]{cthesis}{sansserif=false}
+
+% OPTION hangfigurecaption
+% --> values = true|false
+\define@boolkey[ct]{cthesis}{hangfigurecaption}[true]{}
+\setkeys[ct]{cthesis}{hangfigurecaption=false}
+
+% OPTION hangsection
+% --> values = true|false
+\define@boolkey[ct]{cthesis}{hangsection}[true]{}
+\setkeys[ct]{cthesis}{hangsection=true}
+
+% OPTION hangsubsection
+% --> values = true|false
+\define@boolkey[ct]{cthesis}{hangsubsection}[true]{}
+\setkeys[ct]{cthesis}{hangsubsection=true}
+
+% OPTION figuresep
+% --> values = none|colon|period|space|quad|endash
+\define@choicekey*[ct]{cthesis}{figuresep}{none,colon,period,space,quad,newline,endash}[endash]{\def\cthesis@figuresep{#1}}
+\setkeys[ct]{cthesis}{figuresep=endash}
+
+% OPTION colorize
+% --> values = full|reduced|bw
+\define@choicekey*[ct]{cthesis}{colorize}[\val\colorizenr]{full,reduced,bw}[full]{\def\cthesis@colorize{\colorizenr}}
+\setkeys[ct]{cthesis}{colorize=full}
+
+% OPTION colortheme
+% --> values = bluemagenta|bluegreen
+\define@choicekey*[ct]{cthesis}{colortheme}[\val\themenr]{bluemagenta,bluegreen}[bluemagenta]{\def\cthesis@colortheme{\themenr}}
+\setkeys[ct]{cthesis}{colortheme=bluemagenta}
+
+\DeclareOptionX*{
 	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
 }
-\ProcessOptions\relax % executes the code for each option
+
+\ProcessOptionsX[ct]<cthesis>
 
 
 % **************************************************
 % Color Definitions
 % **************************************************
+% 
+% -- defines color themes and color commands
+%
+%
+% The xcolor package enables us to create/handle/name different colors
 \RequirePackage[dvipsnames]{xcolor}
 
-% general clean thesis colors
-\definecolor{cthesisblack}{gray}{.05}
-\definecolor{cthesisgraylight}{gray}{.8}
-\definecolor{cthesismaincolor}{cmyk}{1, .50, .10, .01}
-\definecolor{cthesisaccessorycolor}{cmyk}{.18, .98, .18, 0}
+% updates all colors regarding the defined main and accessory
+% color, as well as the defined colorize mode (full, reduced, bw)
+\long\def\ct@cthesis@updatecolors{%
+	% sets all colors (like colorize == full)
+	% -- footer colors
+	\colorlet{ctcolorfooterpage}{ctcolorblack}
+	\colorlet{ctcolorfooterline}{ctcolormain}
+	\colorlet{ctcolorfootermark}{ctcolorblack}
+	\colorlet{ctcolorfootertitle}{ctcolormain}
+	% -- sectioning colors
+	\colorlet{ctcolorpartnum}{ctcolormain}
+	\colorlet{ctcolorpartline}{ctcolorblack}
+	\colorlet{ctcolorparttext}{ctcolorblack}
+	\colorlet{ctcolorchapternum}{ctcolormain}
+	\colorlet{ctcolorchapterline}{ctcolormain}
+	\colorlet{ctcolorsection}{ctcolormain}
+	\colorlet{ctcolorsubsection}{ctcolormain}
+	\colorlet{ctcolorparagraph}{ctcolorblack}
+	% --> text colors
+	\colorlet{ctcolorfloatlabel}{ctcoloraccessory}
+	\colorlet{ctcolorlistlabel}{ctcolormain}
+	
+	\ifcase\cthesis@colorize
+		% case = 0 (colorize == full)
+		% do nothing
+	\or
+		% case = 1 (colorize == reduced)
+		% --> footer colors
+		\colorlet{ctcolorfooterline}{ctcolorgray}
+		\colorlet{ctcolorfootertitle}{ctcolorgray}
+		% --> sectioning colors
+		\colorlet{ctcolorsubsection}{ctcolorblack}
+		\colorlet{ctcolorpartnum}{ctcolorblack}
+		% --> text colors
+		\colorlet{ctcolorlistlabel}{ctcolorblack}
+	\or
+		% case = 2 (colorize == bw)
+		% --> footer colors
+		\colorlet{ctcolorfooterline}{ctcolorgray}
+		\colorlet{ctcolorfootertitle}{ctcolorgray}
+		% --> sectioning colors
+		\colorlet{ctcolorpartnum}{ctcolorblack}
+		\colorlet{ctcolorchapternum}{ctcolorblack}
+		\colorlet{ctcolorchapterline}{ctcolorblack}
+		\colorlet{ctcolorsection}{ctcolorblack}
+		\colorlet{ctcolorsubsection}{ctcolorblack}
+		% --> text colors
+		\colorlet{ctcolorfloatlabel}{ctcolorblack}
+		\colorlet{ctcolorlistlabel}{ctcolorblack}
+	\else
+	\fi
+}
 
-% footer colors
-\colorlet{cthesiscolorfooterpage}{cthesisblack}
-\colorlet{cthesiscolorfooterline}{cthesismaincolor}
-\colorlet{cthesiscolorfootermark}{cthesisblack}
-\colorlet{cthesiscolorfootertitle}{cthesismaincolor}
+% sets the main and accessory color for the document
+\def\cthesissetcolor#1#2#3{%
+	\definecolor{ctcolormain}{#1}{#2}%
+	\definecolor{ctcoloraccessory}{#1}{#3}%
+	\ct@cthesis@updatecolors%
+}
 
-% part colors
-\colorlet{cthesiscolorpartnum}{cthesismaincolor}
-\colorlet{cthesiscolorpartline}{cthesisblack}
-\colorlet{cthesiscolorparttext}{cthesisblack}
+% sets the blue-magenta color theme (blue/magenta)
+\def\cthesissetcolorbluemagenta{%
+	\cthesissetcolor{cmyk}{1, .50, .10, .01}{.18, .98, .18, 0}%
+}
 
-% chapter colors
-\colorlet{cthesiscolorchapternum}{cthesismaincolor}
-\colorlet{cthesiscolorchapterline}{cthesismaincolor}
+% sets the blue-green color theme (blue/green)
+\def\cthesissetcolorbluegreen{%
+	\cthesissetcolor{cmyk}{.61, .47, .03, 0}{.48, .05, .91, 0}%
+}
 
-% text colors
-\colorlet{cthesiscolorsection}{cthesismaincolor}
-\colorlet{cthesiscolorsubsection}{cthesismaincolor}
-\colorlet{cthesiscolorfloatlabel}{cthesisaccessorycolor}
-\colorlet{cthesiscolorlistlabel}{cthesismaincolor}
-\colorlet{cthesiscolorparagraph}{cthesisblack}
+% defines general colors
+\definecolor{ctcolorblack}{gray}{0}
+\definecolor{ctcolorgray}{gray}{.5}
+\definecolor{ctcolorgraylight}{gray}{.8}
 
-\ifthenelse{\boolean{@colorbw}}%
-	{%
-		\setboolean{@colorreduced}{true}%
-		%
-		\colorlet{cthesiscolorchapternum}{cthesisblack}%
-		\colorlet{cthesiscolorchapterline}{cthesisblack}%
-		%
-		\colorlet{cthesiscolorsection}{cthesisblack}%
-		\colorlet{cthesiscolorfloatlabel}{cthesisblack}%
-		%
-		\colorlet{cthesiscolorpartnum}{cthesisblack}
-	}{}
-\ifthenelse{\boolean{@colorreduced}}%
-	{%
-		\colorlet{cthesiscolorfooterline}{cthesisblack}
-		\colorlet{cthesiscolorfootertitle}{cthesisblack}
-		\colorlet{cthesiscolorsubsection}{cthesisblack}
-		\colorlet{cthesiscolorlistlabel}{cthesisblack}
-		%
-		\colorlet{cthesiscolorpartnum}{cthesisblack}
-	}{}
+% sets the color theme regarding the given package option colortheme
+\ifcase\cthesis@colortheme
+	% case 0 (colortheme == bluemagenta)
+	\cthesissetcolorbluemagenta
+\or
+	% case 1 (colortheme == bluegreen)
+	\cthesissetcolorbluegreen
+\else
+	% all other cases
+	\cthesissetcolorbluemagenta
+\fi
+
 
 % **************************************************
 % Font Definitions (see http://www.tug.dk/FontCatalogue/)
 % **************************************************
 \RequirePackage[T1]{fontenc}		% font types and character verification
-\ifthenelse{\boolean{@sansserif}}%
-	{%
+%\ifthenelse{\boolean{@sansserif}}%
+\ifct@cthesis@sansserif
+%	{%
 		% Using sans-serif fonts
 		%
 		%\RequirePackage{helvet}	% Font:	Helvetica
@@ -169,13 +221,15 @@
 		%\RequirePackage{libertine}	% Font:	Biolinum, the standard sans serif typeface with the Libertine package
 		%\RequirePackage[scaled]{berasans} % Font:	Bera Sans, a a version of Bitstream Vera Sans slightly enhanced
 		\renewcommand*\familydefault{\sfdefault}%
-	}{%
+%	}{%
+\else
 		% Using serif fonts
 		%
 		\RequirePackage{lmodern}	% font set: Latin Modern
 		\RequirePackage{charter}	% font set: Charter
 		%\RequirePackage{fourier}	% font set: (basically improved utopia)
-	}
+%	}
+\fi
 
 % **************************************************
 % Load Packages
@@ -193,15 +247,17 @@
 %
 \RequirePackage[					% modify figure and table captions
 	font={small}, 					% 	- small font size
-	labelfont={bf,sf,color=cthesiscolorfloatlabel},% 	- label in bold, sans-serif and magenta
-	labelsep=endash,				% 	- separator: none, colon, period, space, quad, newline, endash
+	labelfont={bf,sf,color=ctcolorfloatlabel},% 	- label in bold, sans-serif and magenta
+	labelsep=\cthesis@figuresep,				% 	- separator: none, colon, period, space, quad, newline, endash
 	singlelinecheck=false			% 	- no centered single-lined captions
 ]{caption}[2008/08/24]
-\ifthenelse{\boolean{@figurecaptionoutside}}%
-	{%
+%\ifthenelse{\boolean{@figurecaptionoutside}}%
+\ifct@cthesis@hangfigurecaption
+%	{%
 		\DeclareCaptionFormat{llap}{\llap{#1#2}#3\par}%
 		\captionsetup{format=llap,labelsep=quad,singlelinecheck=false}%
-	}{}
+%	}{}
+\fi
 %
 \RequirePackage[					% page layout modifications
 	paper=a4paper,					% 	- use A4 paper size
@@ -288,7 +344,7 @@
 
 \renewcommand{\descriptionlabel}[1]{%
 	\hspace*{\labelsep}%
-	\color{cthesiscolorlistlabel}%
+	\color{ctcolorlistlabel}%
 	\tgherosfont\textbf{#1}%
 }
 \newenvironment{my_list_desc}
@@ -309,17 +365,17 @@
 \renewcommand{\chaptermark}[1]{%
 	\markboth{%
 		\footnotesize%
-		{\color{cthesiscolorfootermark}\textbf{\chaptername\ \thechapter}}%
+		{\color{ctcolorfootermark}\textbf{\chaptername\ \thechapter}}%
 		\quad%
-		{\color{cthesiscolorfootertitle}#1}%
+		{\color{ctcolorfootertitle}#1}%
 	}{}%
 }
 \renewcommand{\sectionmark}[1]{%
 	\markright{%
 		\footnotesize%
-		{\color{cthesiscolorfootermark}\textbf{\thesection}}%
+		{\color{ctcolorfootermark}\textbf{\thesection}}%
 		\quad%
-		{\color{cthesiscolorfootertitle}#1}%
+		{\color{ctcolorfootertitle}#1}%
 	}%
 }
 %
@@ -328,18 +384,18 @@
 	\fancyfootoffset[OR]{1.85cm}
 	\fancyfoot[OR]{%
 		{\ }\tgherosfont%
-		{\color{cthesiscolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+		{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
 		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
-			\color{cthesiscolorfooterpage}\normalsize\textbf{\thepage}%
+			\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
 		\end{minipage}%
 	}
 	\fancyfootoffset[EL]{1.85cm}
 	\fancyfoot[EL]{%
 		\tgherosfont%
 		\begin{minipage}[b]{1.5cm}%
-			\raggedleft\color{cthesiscolorfooterpage}\normalsize\textbf{\thepage}%
+			\raggedleft\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
 		\end{minipage}%
-		\hspace*{10pt}{\color{cthesiscolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+		\hspace*{10pt}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
 	}
 	\renewcommand{\headrulewidth}{0pt}
 	\renewcommand{\footrulewidth}{0pt}
@@ -352,19 +408,19 @@
 	\fancyfoot[OR]{%
 		{\ }\tgherosfont\footnotesize%
 		\rightmark%
-		\hspace*{0.75cm}{\color{cthesiscolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+		\hspace*{0.75cm}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
 		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
-			\color{cthesiscolorfooterpage}\normalsize\textbf{\thepage}%
+			\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
 		\end{minipage}%
 	}
 	\fancyfootoffset[EL]{1.85cm}
 	\fancyfoot[EL]{%
 		\tgherosfont\footnotesize%
 		\begin{minipage}[b]{1.5cm}%
-			\raggedleft\color{cthesiscolorfooterpage}\normalsize\textbf{\thepage}%
+			\raggedleft\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
 		\end{minipage}%
 		\footnotesize%
-		\hspace*{10pt}{\color{cthesiscolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+		\hspace*{10pt}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
 		\hspace*{0.75cm}\leftmark%
 	}
 }
@@ -435,13 +491,13 @@
 \newcommand{\book}{\fontfamily{pbk}\fontseries{m}\fontsize{11}{13}\selectfont}
 \newcommand{\tgherosfont}{\fontfamily{qhv}\selectfont}
 
-\newcommand{\thesispartlabelfont}{\color{cthesiscolorpartnum}\book\fontsize{60}{60}\selectfont}
-\newcommand{\thesispartfont}{\color{cthesiscolorparttext}\huge \tgherosfont\selectfont}
-\newcommand{\thesischapterfont}{\color{cthesisblack}\huge \fontfamily{phv}\selectfont}
-%\newcommand{\thesissectionfont}{\color{cthesismaincolor}\LARGE\bfseries \tgherosfont}
-\newcommand{\thesissectionfont}{\color{cthesiscolorsection}\LARGE \tgherosfont}
-\newcommand{\thesissubsectionfont}{\color{cthesiscolorsubsection}\Large \tgherosfont}
-\newcommand{\thesisparagraphfont}{\color{cthesiscolorparagraph}\tgherosfont\small\bfseries}
+\newcommand{\thesispartlabelfont}{\color{ctcolorpartnum}\book\fontsize{60}{60}\selectfont}
+\newcommand{\thesispartfont}{\color{ctcolorparttext}\huge \tgherosfont\selectfont}
+\newcommand{\thesischapterfont}{\color{ctcolorblack}\huge \fontfamily{phv}\selectfont}
+%\newcommand{\thesissectionfont}{\color{ctcolormain}\LARGE\bfseries \tgherosfont}
+\newcommand{\thesissectionfont}{\color{ctcolorsection}\LARGE \tgherosfont}
+\newcommand{\thesissubsectionfont}{\color{ctcolorsubsection}\Large \tgherosfont}
+\newcommand{\thesisparagraphfont}{\color{ctcolorparagraph}\tgherosfont\small\bfseries}
 %
 % headings
 \setkomafont{part}{\thesispartfont} % for chapter entries
@@ -482,7 +538,7 @@
 	{\raggedleft{%
 		{\thesispartlabelfont%
 			\partname\ \thepart\quad}%
-		{\color{cthesiscolorpartline}%
+		{\color{ctcolorpartline}%
 			\hspace*{-225pt}\rule[20pt]{600pt}{2pt}}
 		}%
 	}%
@@ -494,9 +550,9 @@
 \titleformat{\chapter}[display]%
 	{\usekomafont{chapter}}%
 	{\vspace{-8em}\raggedleft{%
-		{\color{cthesiscolorchapterline}%
+		{\color{ctcolorchapterline}%
 			\rule[-5pt]{2pt}{5cm}}\quad%
-		{\color{cthesiscolorchapternum}
+		{\color{ctcolorchapternum}
 			\fontsize{60}{60}\selectfont\thechapter}%
 		}%
 	}%
@@ -506,41 +562,47 @@
 %
 % > formats: \section
 \titlespacing{\section}{0em}{.75em}{.2em}%[0pt]
-\ifthenelse{\boolean{@sectionlabeloutside}}%
-	{%
+%\ifthenelse{\boolean{@sectionlabeloutside}}%
+\ifct@cthesis@hangsection
+%	{%
 		\titleformat{\section}[hang]%
 			{\usekomafont{section}}%
-			{\color{cthesisblack}\thesection\hspace*{10pt}}%
+			{\color{ctcolorblack}\thesection\hspace*{10pt}}%
 			{0pt}%
 			{\raggedright}%
 			[\phantomsection]
-	}{%
+%	}{%
+\else
 		\titleformat{\section}[block]%
 			{\usekomafont{section}}%
-			{\color{cthesisblack}\thesection\hspace*{10pt}}%
+			{\color{ctcolorblack}\thesection\hspace*{10pt}}%
 			{0pt}%
 			{\raggedright}%
 			[\phantomsection]
-	}
+%	}
+\fi
 %
 % > formats: \subsection
 \titlespacing{\subsection}{0em}{.5em}{0em}%[0pt]
-\ifthenelse{\boolean{@subsectionlabeloutside}}%
-	{%
+%\ifthenelse{\boolean{@subsectionlabeloutside}}%
+\ifct@cthesis@hangsubsection
+%	{%
 		\titleformat{\subsection}[hang]%
 			{\usekomafont{subsection}}%
-			{\color{cthesisblack}\thesubsection\hspace*{10pt}}%
+			{\color{ctcolorblack}\thesubsection\hspace*{10pt}}%
 			{0pt}%
 			{\raggedright}%
 			[\phantomsection]
-	}{%
+%	}{%
+\else
 		\titleformat{\subsection}[block]%
 			{\usekomafont{subsection}}%
-			{\color{cthesisblack}\thesubsection\hspace*{10pt}}%
+			{\color{ctcolorblack}\thesubsection\hspace*{10pt}}%
 			{0pt}%
 			{\raggedright}%
 			[\phantomsection]
-	}
+%	}
+\fi
 %
 % > formats: \paragraph
 \titlespacing{\paragraph}{0pt}{\parsep}{1em}%[0pt]
@@ -579,7 +641,7 @@
 % Clean chapter quotations
 \newcommand{\hugequote}{%
 	{\book\fontsize{75}{80}\selectfont%
-	\hspace*{-.475em}\color{cthesisgraylight}%
+	\hspace*{-.475em}\color{ctcolorgraylight}%
 	\textit{\glqq}%
 	\vskip -.26em}%
 }
@@ -615,3 +677,6 @@
 %
 % Clean signs around word origins in definitions
 %\newcommand{\cthesisorigin}[1]{\textsf{\textlangle}#1\textsf{\textrangle}}
+
+
+

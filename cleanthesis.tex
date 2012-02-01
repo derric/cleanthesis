@@ -1,0 +1,116 @@
+\documentclass{ltxdockit}
+\usepackage{btxdockit}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+\usepackage[strict]{csquotes}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{shortvrb}
+\usepackage{pifont}
+
+\rcsid{$Id: cleanthesis.tex,v 0.2 2012/02/01 12:30:00 rlangner stable $}
+
+\newcommand*{\cleanthesis}{CleanThesis\xspace}
+\newcommand*{\cthesishome}{http://cleanthesis.der-ric.de/}
+%\newcommand*{\cthesisctan}{http://www.ctan.org/tex-archive/macros/latex/contrib/../}
+
+\titlepage{%
+  title={The \sty{cleanthesis} Package},
+  subtitle={A LaTeX Style for Thesis Documents},
+  url={\cthesishome},
+  author={Ricardo Langner},
+  email={info@cleanthesis.der-ric.de},
+  revision={\rcsrevision},
+  date={\rcstoday}}
+
+\hypersetup{%
+  pdftitle={The \cleanthesis Package},
+  pdfsubject={A LaTeX Style for Thesis Documents},
+  pdfauthor={Ricardo Langner},
+  pdfkeywords={tex, latex, thesis, style}}
+
+
+%\setcounter{secnumdepth}{4}
+
+\begin{document}
+
+\printtitlepage
+\tableofcontents
+\listoftables
+
+\section{Introduction}
+\label{sec:intro}
+
+\subsection[About]{About \sty{cleanthesis}}
+\label{sec:intro:about}
+
+\subsection{License}
+\label{sec:intro:license}
+
+Copyright \textcopyright\ 2011--2012 Ricardo Langner.
+\cleanthesis is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+\cleanthesis is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.
+If not, see <http://www.gnu.org/licenses/>.
+
+\subsection{Feedback}
+\label{sec:intro:feedback}
+
+\subsection{Acknowledgments}
+\label{sec:intro:ack}
+
+\subsection{Prerequisites}
+\label{sec:intro:pre}
+
+The follwing section gives an overview of all resources required by this package.
+
+\subsubsection{Requirements}
+\label{sec:intro:req}
+
+\section{User Guide}
+\label{sec:userguide}
+
+\subsection{Package Options}
+\label{sec:userguide:pkgopt}
+
+All package options are given in \keyval notation.
+The value \texttt{true} can be omitted for all boolean keys, \eg \opt{sansserif} without a value is equivalent to \kvopt{sansserif}{true}.
+
+All of the following options must be used as \sty{cthesis} is loaded, \ie in the optional argument to \cmd{usepackage}.
+
+\begin{optionlist}
+
+\boolitem[false]{sansserif}
+
+Sets whether to use a sans serif font or not.
+
+\boolitem[false]{hangfigurecaption}
+
+\boolitem[true]{hangsection}
+
+\boolitem[true]{hangsubsection}
+
+\optitem[endash]{figuresep}{\opt{none},\opt{colon},\opt{period},\opt{space},\opt{quad},\opt{endash}}
+
+This option can be used to define a different label separator for cations of figures. The following value are allowed:
+
+\begin{valuelist}
+\item[none] Inserts no character in between.
+\item[colon] Inserts a colon (\textbf{:}) in between.
+\item[period] Inserts a period (\textbf{.}) in between.
+\item[space] Inserts a single space character in between.
+\item[quad] Inserts a \cmd{\\quad} in between.
+\item[endash] Inserts an en dash (\textbf{--}) in between.
+\end{valuelist}
+
+\optitem[full]{colorize}{\opt{full},\opt{reduced},\opt{bw}}
+
+\optitem[bluemagenta]{colortheme}{\opt{bluemagenta},\opt{bluegreen}}
+
+\end{optionlist}
+
+\end{document}
