@@ -101,6 +101,11 @@
 \define@choicekey*[ct]{cthesis}{colortheme}[\val\themenr]{bluemagenta,bluegreen}[bluemagenta]{\def\cthesis@colortheme{\themenr}}
 \setkeys[ct]{cthesis}{colortheme=bluemagenta}
 
+% OPTION bibsys
+% --> values = biber|bibtex
+\define@choicekey*[ct]{cthesis}{bibsys}[\val\colorizenr]{biber,bibtex}[bibtex]{\def\cthesis@bibsys{#1}}
+\setkeys[ct]{cthesis}{bibsys=bibtex}
+
 \DeclareOptionX*{
 	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
 }
@@ -282,7 +287,7 @@
 ]{csquotes}
 %
 \RequirePackage[					% use biblatex for bibliography
-%	backend=biber,					% 	- use biber backend (bibtex replacement)
+	backend=\cthesis@bibsys,		% 	- use biber backend (bibtex replacement) or bibtex
 	bibencoding=utf8,				% 	- use auto file encode
 	style=alphabetic,				% 	- use alphabetic (or numeric) bib style
 	natbib=true,					% 	- allow natbib commands
