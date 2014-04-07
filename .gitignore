@@ -10,3 +10,4 @@
 *.synctex.gz
 *.toc
 *.bcf
+*.fdb_latexmk

@@ -2,7 +2,7 @@
 % Clean Thesis
 % -- A LaTeX Style for Thesis Documents --
 % 
-% Copyright (C) 2011-2013 Ricardo Langner
+% Copyright (C) 2011-2014 Ricardo Langner
 % **************************************************
 %
 % Readme:
@@ -552,6 +552,13 @@
 	[\phantomsection]
 %
 % > formats: \chapter
+%
+% The following command is used to avoid overlapping
+% of the chapter headline text, see bug/ticket #1
+% Solution adapted according to the comment from "Gonzalo Medina" - Thanks
+% http://tex.stackexchange.com/questions/165878/width-of-chapter-section-with-titlesec
+\newcommand\ctformatchapter[1]{\parbox[t]{\dimexpr\textwidth-4em\relax}{\raggedright#1}}
+%
 \titleformat{\chapter}[display]%
 	{\usekomafont{chapter}}%
 	{\vspace{-8em}\raggedleft{%
@@ -562,7 +569,7 @@
 		}%
 	}%
 	{-2.1em}%
-	{\raggedright}%
+	{\ctformatchapter}%
 	[\phantomsection]
 %
 % > formats: \section
