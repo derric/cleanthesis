@@ -1,7 +1,7 @@
 % **************************************************
 % Clean Thesis
 % -- A LaTeX Style for Thesis Documents --
-% 
+%
 % Copyright (C) 2011-2014 Ricardo Langner
 % **************************************************
 %
@@ -12,21 +12,21 @@
 % for my diplom thesis (Diplomarbeit). The style can be understood
 % as my personal compromise - a typical clean looking scientific
 % document combined and polished with minor beautifications.
-% 
+%
 % The design of this "Clean Thesis" style is inspired
 % by user guide documents from Apple Inc.
-% 
+%
 % Note: If you are looking for an exact and correct style regarding
 % typographic rules, please have a look at the "Classic Thesis Style"
 % (see http://www.miede.de/index.php?page=classicthesis).
-% 
+%
 % *** Donation = Postcard ***
 % Based on the idea of Andr\'e Miede: If you like the "Clean Thesis"
 % style I would be very pleased about a donation in the form of a
 % POSTCARD. You can find my address at http://cleanthesis.der-ric.de/
 % as well as in the file Clean-Thesis.pdf. I am going to collect all
 % postcards and exhibit them at the website I mentioned.
-% 
+%
 % *** Idea and Inspiration ***
 % The idea of providing my customized style for thesis documents
 % passed through my mind while writing my own thesis. Motivated and
@@ -35,20 +35,20 @@
 % (thanks to Andr\'e for doing a great job) I decided to collect all
 % design and style related functionality in a separate LaTeX style and
 % provide this style to other thesis writers.
-% 
-% 
+%
+%
 % License Information:
 % ----------------------------------------
 % "Clean Thesis" is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation, either version 3 of the License, or
 % (at your option) any later version.
-% 
+%
 % "Clean Thesis" is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
 % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 % GNU General Public License for more details.
-% 
+%
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 % **************************************************
@@ -58,7 +58,7 @@
 % **************************************************
 % Package options
 % **************************************************
-% 
+%
 % -- process all available package options
 %
 %
@@ -106,6 +106,12 @@
 \define@choicekey*[ct]{cthesis}{bibsys}[\val\bibsysnr]{biber,bibtex}[bibtex]{\def\cthesis@bibsys{#1}}
 \setkeys[ct]{cthesis}{bibsys=bibtex}
 
+% OPTION bibfile
+% --> values = file name of your bibtex file
+\define@key[ct]{cthesis}{bibfile}[bib-refs]{\def\cthesis@bibfile{#1}}
+\setkeys[ct]{cthesis}{bibfile=bib-refs}
+
+
 \DeclareOptionX*{
 	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
 }
@@ -116,7 +122,7 @@
 % **************************************************
 % Color Definitions
 % **************************************************
-% 
+%
 % -- defines color themes and color commands
 %
 %
@@ -144,7 +150,7 @@
 	% --> text colors
 	\colorlet{ctcolorfloatlabel}{ctcoloraccessory}
 	\colorlet{ctcolorlistlabel}{ctcolormain}
-	
+
 	\ifcase\cthesis@colorize
 		% case = 0 (colorize == full)
 		% do nothing
@@ -276,7 +282,7 @@
 	left=3.75cm,					% 	- total body: left margin (odd pages)
 	right=0.75cm,					% 	- total body: right margin (odd pages)
 	bottom=1.5cm,					% 	- total body: bottom margin
-	marginparwidth=1.75cm,			% 	- width for side note 
+	marginparwidth=1.75cm,			% 	- width for side note
 	marginparsep=10pt,				% 	- space between notes and body text (content)
 	footskip=2cm,					% 	- footer skip size
 ]{geometry}
@@ -304,7 +310,7 @@
 	maxcitenames=2,%
 	mincitenames=1%
 ]{biblatex}
-\bibliography{bib-refs}
+\bibliography{\cthesis@bibfile}
 \DefineBibliographyStrings{ngerman}{%
 	andothers = {{et\,al\adddot}}, % 'et al.' instead of 'u.a.'
 	backrefpage = {{zitiert auf Seite}},%
@@ -318,7 +324,7 @@
 \setlength{\parindent}{0em}			% value for paragraph indentation
 \clubpenalty = 10000				% prevent single lines at the beginning of a paragraph (Schusterjungen)
 \widowpenalty = 10000				% prevent single lines at the end of a paragraph (Hurenkinder)
-\displaywidowpenalty = 10000		% 
+\displaywidowpenalty = 10000		%
 
 % **************************************************
 % List Definitions
@@ -342,7 +348,7 @@
 \newenvironment{ct_version_list}
 	{\begin{itemize}[topsep=-5pt,partopsep=0pt,parsep=2pt,itemsep=3pt]}
 	{\end{itemize}}%
-	
+
 	\newenvironment{ct_version_list_sub}
 		{\begin{itemize}[topsep=-0pt,partopsep=0pt,parsep=0pt,itemsep=0pt]}
 		{\end{itemize}}%
@@ -486,7 +492,7 @@
 % **************************************************
 % Sectioning Commands
 % **************************************************
-% 
+%
 \newcommand*{\ctSetFont}[3]{%
 	arg1=#1, arg2=#2, arg3=#3%
 }
@@ -521,11 +527,11 @@
 % **************************************************
 % Sectioning
 % **************************************************
-% 
+%
 % -- modifications regarding sectioning (structural) commands,
 %    i.e. \part, \chapter, \section, \subsection, \subsubsection, \paragraph
-% 
-% 
+%
+%
 % The package titlesec enables us to modify (style) the sectioning commands
 % -- usage: \titlespacing{\command}{left}{before-sep}{after-sep}[right-sep]
 % -- usage: \titleformat{\command}[shape]{format}{label}{sep}{before}[after]
@@ -535,7 +541,7 @@
 \RequirePackage{titlesec}
 %
 % > formats: \part
-\titleclass{\part}{top} % <-- display: 
+\titleclass{\part}{top} % <-- display:
 \assignpagestyle{\part}{empty}	% <-- no page numbers/decorations
 \titleformat{\part}%
 	[display]%
@@ -629,7 +635,7 @@
 % **************************************************
 % ToC, LoF, LoT
 % **************************************************
-% 
+%
 % -- modifications regarding the table of contents,
 %    the list of figures and the list of tables
 %
@@ -637,7 +643,7 @@
 % The tocloft package enables us to control the typographic design of the
 % table of contents, list of figures and list of tables
 \RequirePackage{tocloft}
-% 
+%
 % > adjusts the indention for figure and table entries (lof and lot)
 %   -- \cftsetindents{entry}{indent}{numwidth} sets the entry's indent to
 %      the length indent and its numwidth to the length numwidth
@@ -670,7 +676,7 @@
 		    	\end{flushright}
 		    \end{minipage}%
 		\end{flushright}
-	\end{minipage}%	  
+	\end{minipage}%
 	\bigskip
 }
 %

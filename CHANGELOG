@@ -6,6 +6,7 @@ cleanthesis repository.
 === Latest Dev ===
 - Created this changelog text file
 - Fixed broken package option/parameter colorize (hrzbrg)
+- New package option bibfile: allows you to link/use arbitrary bibtex files
 
 === v0.2.3 ===
 - Fixed line breaks for long chapter headlines (caused text overlapping)
