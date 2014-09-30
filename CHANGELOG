@@ -5,6 +5,7 @@ cleanthesis repository.
 
 === Latest Dev ===
 - Created this changelog text file
+- Fixed broken package option/parameter colorize (hrzbrg)
 
 === v0.2.3 ===
 - Fixed line breaks for long chapter headlines (caused text overlapping)
