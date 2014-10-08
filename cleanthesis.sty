@@ -111,6 +111,11 @@
 \define@key[ct]{cthesis}{bibfile}[bib-refs]{\def\cthesis@bibfile{#1}}
 \setkeys[ct]{cthesis}{bibfile=bib-refs}
 
+% OPTION bibstyle
+% --> values = alphabetic|numeric
+\define@choicekey*[ct]{cthesis}{bibstyle}[\val\bibstylenr]{alphabetic,numeric}[alphabetic]{\def\cthesis@bibstyle{#1}}
+\setkeys[ct]{cthesis}{bibstyle=alphabetic}
+
 
 \DeclareOptionX*{
 	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
@@ -295,7 +300,7 @@
 \RequirePackage[					% use biblatex for bibliography
 	backend=\cthesis@bibsys,		% 	- use biber backend (bibtex replacement) or bibtex
 	bibencoding=utf8,				% 	- use auto file encode
-	style=alphabetic,				% 	- use alphabetic (or numeric) bib style
+	style=\cthesis@bibstyle,		% 	- use alphabetic (or numeric) bib style
 	natbib=true,					% 	- allow natbib commands
 	hyperref=true,					% 	- activate hyperref support
 	backref=true,					% 	- activate backrefs
