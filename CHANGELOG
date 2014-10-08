@@ -6,8 +6,9 @@ cleanthesis repository.
 === Latest Dev ===
 - Created this changelog text file
 - Fixed broken package option/parameter colorize (hrzbrg)
-- New package option bibfile: allows you to link/use arbitrary bibtex files
 - Fixed changing font size of the document to small caused by a bug in the titlepage (matthieu-lapeyre)
+- New package option bibfile: allows you to link/use arbitrary bibtex files
+- New package option bibstyle: allows you to set a citation and bibliography style
 
 === v0.2.3 ===
 - Fixed line breaks for long chapter headlines (caused text overlapping)
