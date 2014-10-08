@@ -103,14 +103,8 @@
 
 % OPTION bibsys
 % --> values = biber|bibtex
-\define@choicekey*[ct]{cthesis}{bibsys}[\val\bibsysnr]{biber,bibtex}[bibtex]{\def\cthesis@bibsys{#1}}
+\define@choicekey*[ct]{cthesis}{bibsys}[\val\colorizenr]{biber,bibtex}[bibtex]{\def\cthesis@bibsys{#1}}
 \setkeys[ct]{cthesis}{bibsys=bibtex}
-
-% OPTION bibfile
-% --> values = file name of your bibtex file
-\define@key[ct]{cthesis}{bibfile}[bib-refs]{\def\cthesis@bibfile{#1}}
-\setkeys[ct]{cthesis}{bibfile=bib-refs}
-
 
 \DeclareOptionX*{
 	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
@@ -293,29 +287,28 @@
 ]{csquotes}
 %
 \RequirePackage[					% use biblatex for bibliography
-	backend=\cthesis@bibsys,		% 	- use biber backend (bibtex replacement) or bibtex
-	bibencoding=utf8,				% 	- use auto file encode
-	style=alphabetic,				% 	- use alphabetic (or numeric) bib style
-	natbib=true,					% 	- allow natbib commands
-	hyperref=true,					% 	- activate hyperref support
-	backref=true,					% 	- activate backrefs
-	isbn=false,						% 	- don't show isbn tags
-	url=false,						% 	- don't show url tags
-	doi=false,						% 	- don't show doi tags
-	urldate=long,					% 	- display type for dates
-	maxnames=3,%
-	minnames=1,%
-	maxbibnames=5,%
-	minbibnames=3,%
-	maxcitenames=2,%
-	mincitenames=1%
-]{biblatex}
-\bibliography{\cthesis@bibfile}
-\DefineBibliographyStrings{ngerman}{%
-	andothers = {{et\,al\adddot}}, % 'et al.' instead of 'u.a.'
-	backrefpage = {{zitiert auf Seite}},%
-	backrefpages = {{zitiert auf den Seiten}},%
-}
+	natbib=true,
+    style=authoryear-comp,
+    hyperref=true,
+    backend=biber,
+    maxbibnames=99,
+    firstinits=true,
+    uniquename=init,
+    maxcitenames=2,
+    parentracker=true,
+    url=false,
+    doi=false,
+    isbn=false,
+    eprint=false,
+    backref=true,
+    ]{biblatex}
+\bibliography{bib-refs}
+
+%\DefineBibliographyStrings{ngerman}{%
+%	andothers = {{et\,al\adddot}}, % 'et al.' instead of 'u.a.'
+%	backrefpage = {{zitiert auf Seite}},%
+%	backrefpages = {{zitiert auf den Seiten}},%
+%}
 
 % **************************************************
 % Text Format
