@@ -1,24 +1,24 @@
 # Clean Thesis changelog
 
 The latest version of this file can be found at the master branch of the
-cleanthesis repository.
+*Clean Thesis* [repository](https://github.com/derric/cleanthesis).
 
-=== Latest Dev ===
+## Latest Dev
 - Created this changelog text file
 - Fixed broken package option/parameter colorize (hrzbrg)
 - Fixed changing font size of the document to small caused by a bug in the titlepage (matthieu-lapeyre)
 - New package option bibfile: allows you to link/use arbitrary bibtex files
 - New package option bibstyle: allows you to set a citation and bibliography style
 
-=== v0.2.3 ===
+## v0.2.3
 - Fixed line breaks for long chapter headlines (caused text overlapping)
 - Fixed wrong file names to the main latex file for the example document
 
-=== v0.2.2 ===
+## v0.2.2
 - Fix: added address for postcards
 - Doc: improved acknowledgments, added André Miede
 
-=== v0.2.1 ===
+## v0.2.1
 - Fix: make horizontal line longer (just a bit)
 - Fix: update my address (new)
 - Change: add my name to the colophon
@@ -26,11 +26,11 @@ cleanthesis repository.
 - Feature: new package option for citation management tool (bib engine), biber or bibtex
 - Doc: add first people to acknowledgments
 
-=== v0.2 ===
+## v0.2
 - Fix: label widths in the lof and lot (list of figures, list of tables)
 - Feature: more flexible/new package options
 - Feature: improved color management, introduction of color themes (currently two)
 - Doc: Initial documentation (package options)
 
-=== v0.1 ===
+## v0.1
 - Initial public beta version

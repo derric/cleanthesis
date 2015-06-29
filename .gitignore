@@ -11,3 +11,5 @@
 *.toc
 *.bcf
 *.fdb_latexmk
+README.html
+CHANGELOG.html
