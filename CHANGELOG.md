@@ -4,9 +4,18 @@ The latest version of this file can be found at the master branch of the
 *Clean Thesis* [repository](https://github.com/derric/cleanthesis).
 
 ## Latest Dev
+- ...
+
+## v0.3
 - Created this changelog text file
+- Switched to markdown files (README, CHANGELOG)
+- Added a sub-section in the example thesis
+- Fixed README. Corrected copyright statement (year), wording and link to classicthesis (moschlar)
 - Fixed broken package option/parameter colorize (hrzbrg)
 - Fixed changing font size of the document to small caused by a bug in the titlepage (matthieu-lapeyre)
+- Fixed documentation. Added missing descriptions for package options: hangfigurecaption, hangsection, hangsubsection, colorize, and colortheme
+- Fixed line height for the title on the very first title page (Riin)
+- Fixed colored title on title page, even if color mode is bw
 - New package option bibfile: allows you to link/use arbitrary bibtex files
 - New package option bibstyle: allows you to set a citation and bibliography style
 
