@@ -112,9 +112,15 @@ Sets whether to use a sans serif font or not.
 
 \boolitem[false]{hangfigurecaption}
 
+Sets whether to use a hanging figure label (similar to headlines, placed in page margin) or not.
+
 \boolitem[true]{hangsection}
 
+Sets whether to use a hanging section label (placed in page margin) or not.
+
 \boolitem[true]{hangsubsection}
+
+Sets whether to use a hanging sub-section label (placed in page margin) or not.
 
 \optitem[endash]{figuresep}{\opt{none},\opt{colon},\opt{period},\opt{space},\opt{quad},\opt{endash}}
 
@@ -131,7 +137,31 @@ This option can be used to define a different label separator for cations of fig
 
 \optitem[full]{colorize}{\opt{full},\opt{reduced},\opt{bw}}
 
+This option can be used to define a color mode, i.e., what elements or parts of the document should be colored.
+This allows you to reduce costs, if you need to print the document.
+The following values are allowed:
+
+\begin{valuelist}
+\item[full] In this mode, almost every page uses some color, because the thin line besides the page number (footer) is colored.
+	The following elements are colored as well: title of the document (title page), number of the chapter on the chapter page, name of the chapter in the footer, section and sub-section headlines, and figure labels.
+\item[reduced] This mode reduces the use of colors to reasonable level.
+	Footers are totally free of colors.
+	Only the title page, chapter pages, section headlines, and figure labels are colored.
+\item[bw] This mode completely eliminates all colors of the document style---every element is black or gray.
+	If you do not use colored images either, the document is completely achromatic.
+\end{valuelist}
+
 \optitem[bluemagenta]{colortheme}{\opt{bluemagenta},\opt{bluegreen}}
+
+This option can be used, to switch between different color presets.
+These presets are used to colorize, e.g., headlines, footnotes, or chapter numbers.
+This option has a reduced or no effect depending on the package option \texttt{colorize} (see above).
+The following values are allowed:
+
+\begin{valuelist}
+\item[bluemagenta] Headlines and titles use a blue color, figure labels use magenta.
+\item[bluegreen] Headlines and titles use a blue color, figure labels use green.
+\end{valuelist}
 
 \optitem[bibtex]{bibsys}{\opt{biber},\opt{bibtex}}
 
