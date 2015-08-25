@@ -1,8 +1,6 @@
 # Clean Thesis
 *-- A LaTeX Style for Thesis Documents --*
 
-*Copyright (C) 2011-2015 Ricardo Langner*
-
 ## Readme:
 
 **Clean, Simple, Elegant**
@@ -18,11 +16,21 @@ Based on the idea of André Miede: If you like the *Clean Thesis* style I would 
 **Idea and Inspiration**
 The idea of providing my customized style for thesis documents passed through my mind while writing my own thesis. Motivated and inspired by the superb "[Classic Thesis Style](see http://www.miede.de/#classicthesis)" by André Miede (thanks to André for doing a great job) I decided to collect all design and style related functionality in a separate LaTeX style and provide this style to other thesis writers.
 
-
 ## License Information:
 
-*Clean Thesis* is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+README.md
+Copyright 2015 R. Langner
 
-*Clean Thesis* is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either version 1.3
+of this license or (at your option) any later version.
+The latest version of this license is in
+  http://www.latex-project.org/lppl.txt
+and version 1.3 or later is part of all distributions of LaTeX
+version 2005/12/01 or later.
 
-You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+This work has the LPPL maintenance status `maintained'.
+
+The Current Maintainer of this work is R. Langner.
+
+This work consists of all files listed in MANIFEST.md.
