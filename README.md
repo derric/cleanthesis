@@ -1,5 +1,5 @@
 # Clean Thesis
-*-- A LaTeX Style for Thesis Documents --*
+*-- A Clean LaTeX Style for Thesis Documents --*
 
 ## Readme:
 
