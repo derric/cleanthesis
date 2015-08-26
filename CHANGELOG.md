@@ -25,8 +25,12 @@ The latest version of this file can be found at the master branch of the
 *Clean Thesis* [repository](https://github.com/derric/cleanthesis).
 
 ## Latest Dev
+- ...
+
+## v0.3.1
 - re-licensed cleanthesis using the LPPL 1.3, http://www.latex-project.org/lppl.txt
 - moved documentation into a separate subfolder (doc/)
+- Example: change specific version number to a more general value (My First Draft).
 
 ## v0.3
 - Created this changelog text file
