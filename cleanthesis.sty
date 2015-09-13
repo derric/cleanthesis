@@ -92,6 +92,11 @@
 \define@choicekey*[ct]{cthesis}{bibstyle}[\val\bibstylenr]{alphabetic,numeric,authoryear}[alphabetic]{\def\cthesis@bibstyle{#1}}
 \setkeys[ct]{cthesis}{bibstyle=alphabetic}
 
+% OPTION sidenotes
+% --> values = true|false
+\define@boolkey[ct]{cthesis}{sidenotes}[true]{}
+\setkeys[ct]{cthesis}{sidenotes=true}
+
 
 \DeclareOptionX*{
 	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
@@ -259,15 +264,19 @@
 	%scale={0.86,0.94},				% 	- total body size (h,v)
 	nohead,							% 	- no header
 	includefoot,					% 	- include footer space
-	includemp,						% 	- include side note space
 	bindingoffset=0.5cm,			% 	- binding correction
 	top=2.25cm,						% 	- total body: top margin
 	left=3.75cm,					% 	- total body: left margin (odd pages)
 	right=0.75cm,					% 	- total body: right margin (odd pages)
 	bottom=1.5cm,					% 	- total body: bottom margin
-	marginparwidth=1.75cm,			% 	- width for side note
-	marginparsep=10pt,				% 	- space between notes and body text (content)
 	footskip=2cm,					% 	- footer skip size
+	\ifct@cthesis@sidenotes
+	%	{%
+			includemp,						% 	- include side note space
+			marginparwidth=1.75cm,			% 	- width for side note
+			marginparsep=10pt,				% 	- space between notes and body text (content)
+	%	}{}
+	\fi
 ]{geometry}
 %
 \RequirePackage[					% advanced quotes
