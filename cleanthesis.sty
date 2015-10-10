@@ -634,6 +634,10 @@
 % The tocloft package enables us to control the typographic design of the
 % table of contents, list of figures and list of tables
 \RequirePackage{tocloft}
+% - fixes wrong fonts in the toc, thanks to magnucki
+\renewcommand{\cftchapfont}{\usefont{T1}{bch}{b}{n}\selectfont}
+\renewcommand{\cfttoctitlefont}{\thesischapterfont}
+%
 %
 % > adjusts the indention for figure and table entries (lof and lot)
 %   -- \cftsetindents{entry}{indent}{numwidth} sets the entry's indent to
