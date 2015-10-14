@@ -62,16 +62,18 @@
 \setcounter{page}{1}			% set page counter
 \pagestyle{maincontentstyle} 	% fancy header and footer
 
-\input{content/chapter-introduction} % INCLUDE: introduction
-\input{content/chapter-related-work} % INCLUDE: related work
-\input{content/chapter-system}	% INCLUDE: system
-\input{content/chapter-concepts} % INCLUDE: concepts
-\input{content/chapter-conclusion} % INCLUDE: conclusion
-\cleardoublepage
+\input{content/chapter-introduction}   % INCLUDE: introduction
+\input{content/chapter-related-work}   % INCLUDE: related work
+\input{content/chapter-system}         % INCLUDE: system
+\input{content/chapter-concepts}       % INCLUDE: concepts
+\input{content/chapter-conclusion}     % INCLUDE: conclusion
 
 % --------------------------
 % Back matter
 % --------------------------
+\appendix\cleardoublepage
+\input{content/chapter-appendix}       % INCLUDE: appendix
+%
 {%
 \setstretch{1.1}
 \renewcommand{\bibfont}{\normalfont\small}
