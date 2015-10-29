@@ -377,7 +377,11 @@
 		\footnotesize%
 		{\color{ctcolorfootermark}\textbf{\thesection}}%
 		\quad%
-		{\color{ctcolorfootertitle}#1}%
+		\ifct@cthesis@wrapfooter%
+			{\color{ctcolorfootertitle}\protect\parbox[t]{.7\textwidth}{#1}}%
+		\else%
+			{\color{ctcolorfootertitle}#1}%
+		\fi%
 	}%
 }
 %
