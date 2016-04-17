@@ -363,7 +363,8 @@
 \renewcommand{\chaptermark}[1]{%
 	\markboth{%
 		\footnotesize%
-		{\color{ctcolorfootermark}\textbf{\chaptername\ \thechapter}}%
+		% use \@chapapp instead of \chaptername to avoid 'Chapter A Appendix ...', thanks to @farbverlust (issue #47)
+		{\color{ctcolorfootermark}\textbf{\@chapapp\ \thechapter}}%
 		\quad%
 		\ifct@cthesis@wrapfooter%
 			{\color{ctcolorfootertitle}\protect\parbox[t]{.7\textwidth}{#1}}%
