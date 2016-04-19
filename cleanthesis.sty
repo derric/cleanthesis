@@ -103,6 +103,8 @@
 
 \ProcessOptionsX[ct]<cthesis>
 
+% Checks if bib file exists, if not we throw an error
+\IfFileExists{\cthesis@bibfile.bib}{}{\PackageError{cleanthesis}{Unable to find BibTeX file \cthesis@bibfile.bib!}{Please provide the name of your BibTeX file to the cleanthesis package parameter bibfile.}}
 
 % **************************************************
 % Color Definitions
