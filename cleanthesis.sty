@@ -528,105 +528,39 @@
 % -- modifications regarding sectioning (structural) commands,
 %    i.e. \part, \chapter, \section, \subsection, \subsubsection, \paragraph
 %
-%
-% The package titlesec enables us to modify (style) the sectioning commands
-% -- usage: \titlespacing{\command}{left}{before-sep}{after-sep}[right-sep]
-% -- usage: \titleformat{\command}[shape]{format}{label}{sep}{before}[after]
-% -- usage: \titleclass{\command}{class}
-%    -- classes: page (single page), top (like chapters),
-%                straight (title in the middle)
-\RequirePackage{titlesec}
-%
-% > formats: \part
-\titleclass{\part}{top} % <-- display:
-\assignpagestyle{\part}{empty}	% <-- no page numbers/decorations
-\titleformat{\part}%
-	[display]%
-	{\usekomafont{part}}%
-	{\raggedleft{%
-		{\thesispartlabelfont%
-			\partname\ \thepart\ \quad}%
-		{\color{ctcolorpartline}%
-			\hspace*{-200pt}\rule[20pt]{600pt}{2pt}}
-		}%
-	}%
-	{0em}%
-	{\raggedleft}%
-	[\phantomsection]
-%
+% ---------------------------
 % > formats: \chapter
-%
-% The following command is used to avoid overlapping
-% of the chapter headline text, see bug/ticket #1
-% Solution adapted according to the comment from "Gonzalo Medina" - Thanks
-% http://tex.stackexchange.com/questions/165878/width-of-chapter-section-with-titlesec
-\newcommand\ctformatchapter[1]{\parbox[t]{\dimexpr\textwidth-4em\relax}{\raggedright#1}}
-%
-\titleformat{\chapter}[display]%
-	{\usekomafont{chapter}}%
-	{\vspace{-8em}\raggedleft{%
-		{\color{ctcolorchapterline}%
-			\rule[-5pt]{2pt}{5cm}}\quad%
-		{\color{ctcolorchapternum}
-			\fontsize{60}{60}\selectfont\thechapter}%
-		}%
-	}%
-	{-2.1em}%
-	{\ctformatchapter}%
-	[\phantomsection]
-%
-% > formats: \section
-\titlespacing{\section}{0em}{.75em}{.2em}%[0pt]
-%\ifthenelse{\boolean{@sectionlabeloutside}}%
-\ifct@cthesis@hangsection
-%	{%
-		\titleformat{\section}[hang]%
-			{\usekomafont{section}}%
-			{\color{ctcolorblack}\thesection\hspace*{10pt}}%
-			{0pt}%
-			{\raggedright}%
-			[\phantomsection]
-%	}{%
-\else
-		\titleformat{\section}[block]%
-			{\usekomafont{section}}%
-			{\color{ctcolorblack}\thesection\hspace*{10pt}}%
-			{0pt}%
-			{\raggedright}%
-			[\phantomsection]
-%	}
-\fi
-%
-% > formats: \subsection
-\titlespacing{\subsection}{0em}{.5em}{0em}%[0pt]
-%\ifthenelse{\boolean{@subsectionlabeloutside}}%
-\ifct@cthesis@hangsubsection
-%	{%
-		\titleformat{\subsection}[hang]%
-			{\usekomafont{subsection}}%
-			{\color{ctcolorblack}\thesubsection\hspace*{10pt}}%
-			{0pt}%
-			{\raggedright}%
-			[\phantomsection]
-%	}{%
-\else
-		\titleformat{\subsection}[block]%
-			{\usekomafont{subsection}}%
-			{\color{ctcolorblack}\thesubsection\hspace*{10pt}}%
-			{0pt}%
-			{\raggedright}%
-			[\phantomsection]
-%	}
-\fi
-%
-% > formats: \paragraph
-\titlespacing{\paragraph}{0pt}{\parsep}{1em}%[0pt]
-% \titleformat{\paragraph}[runin]%
-	% {\usekomafont{paragraph}}%
-	% {}%
-	% {}%
-	% {}%
-	% []
+% ---------------------------
+\renewcommand*\chapterheadstartvskip{\vspace*{-8.75em}}
+\renewcommand*\chapterheadendvskip{\vspace*{2.5\baselineskip}}
+\renewcommand*{\chapterformat}{%
+    \ctchapternumber{\thechapter}%
+}
+\renewcommand{\chapterlinesformat}[3]{%
+    \ctchaptertitle{#3}%
+    #2%
+}
+%\renewcommand{\chapterlineswithprefixformat}[3]{%
+%    \ctchaptertitle{\@chapapp\ \thechapter: #3}%
+%    #2%
+%}
+\newcommand{\ctchapternumber}[1]{%
+    \normalfont\usekomafont{chapter}%
+    \begin{minipage}[t]{0.3\textwidth}%
+        \raggedleft{%
+            {\color{ctcolorchapterline}\rule[-5pt]{2pt}{5cm}}%
+            \quad%
+            {\color{ctcolorchapternum}\fontsize{60}{60}\selectfont#1}%
+        }%
+    \end{minipage}%
+}
+\newcommand{\ctchaptertitle}[1]{%
+    \normalfont\usekomafont{chapter}%
+    \begin{minipage}[t]{0.7\textwidth}%
+        \vspace*{5.85em}%
+        #1%
+    \end{minipage}%
+}
 %
 %
 % **************************************************
