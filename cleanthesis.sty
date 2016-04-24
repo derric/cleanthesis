@@ -545,7 +545,7 @@
 %    #2%
 %}
 \newcommand{\ctchapternumber}[1]{%
-    \normalfont\usekomafont{chapter}%
+    \usekomafont{chapter}%
     \begin{minipage}[t]{0.3\textwidth}%
         \raggedleft{%
             {\color{ctcolorchapterline}\rule[-5pt]{2pt}{5cm}}%
@@ -555,12 +555,42 @@
     \end{minipage}%
 }
 \newcommand{\ctchaptertitle}[1]{%
-    \normalfont\usekomafont{chapter}%
+    \usekomafont{chapter}%
     \begin{minipage}[t]{0.7\textwidth}%
         \vspace*{5.85em}%
         #1%
     \end{minipage}%
 }
+%
+% ---------------------------
+% > formats: \section
+% ---------------------------
+\ifct@cthesis@hangsection
+    \renewcommand*{\sectionformat}{%
+        \usekomafont{section}%
+        \makebox[0pt][r]{\color{ctcolorblack}\thesection\hspace*{10pt}}%
+    }
+\else
+    \renewcommand*{\sectionformat}{%
+        \usekomafont{section}%
+        {\color{ctcolorblack}\thesection\hspace*{10pt}}%
+    }
+\fi
+%
+% ---------------------------
+% > formats: \subsection
+% ---------------------------
+\ifct@cthesis@hangsubsection
+    \renewcommand*{\subsectionformat}{%
+        \usekomafont{subsection}%
+        \makebox[0pt][r]{\color{ctcolorblack}\thesubsection\hspace*{10pt}}%
+    }
+\else
+    \renewcommand*{\subsectionformat}{%
+        \usekomafont{subsection}%
+        {\color{ctcolorblack}\thesubsection\hspace*{10pt}}%
+    }
+\fi
 %
 %
 % **************************************************
