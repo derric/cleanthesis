@@ -71,8 +71,6 @@
 % --------------------------
 % Back matter
 % --------------------------
-\appendix\cleardoublepage
-\input{content/chapter-appendix}       % INCLUDE: appendix
 %
 {%
 \setstretch{1.1}
@@ -90,11 +88,16 @@
 \listoftables
 \cleardoublepage
 
-\input{content/colophon}
-\cleardoublepage
+\appendix\cleardoublepage
+\input{content/chapter-appendix}       % INCLUDE: appendix
 
+\cleardoublepage
+\input{content/colophon}
+
+\cleardoublepage
 \input{content/declaration}
 \clearpage
+
 \newpage
 \mbox{}
 
