@@ -234,13 +234,33 @@
 % **************************************************
 % Load Packages
 % **************************************************
+\RequirePackage[                                        % page layout modifications
+        paper=a4paper,                                  %       - use A4 paper size
+        %scale={0.86,0.94},                             %       - total body size (h,v)
+        %scale={0.86,0.94},                             %       - total body size (h,v)
+        nohead,                                                 %       - no header
+        includefoot,                                    %       - include footer space
+        includemp,                                              %       - include side note space
+        bindingoffset=0.5cm,                    %       - binding correction
+        top=2.25cm,                                             %       - total body: top margin
+        left=3.75cm,                                    %       - total body: left margin (odd pages)
+        right=0.75cm,                                   %       - total body: right margin (odd pages)
+        bottom=1.5cm,                                   %       - total body: bottom margin
+        marginparwidth=1.75cm,                  %       - width for side note
+        marginparsep=10pt,                              %       - space between notes and body text (content)
+        footskip=2cm,                                   %       - footer skip size
+        twoside,
+]{geometry}
+
 \RequirePackage{microtype}			% typographic tuning
 \RequirePackage{setspace}			% for line spacing, e.g. \onehalfspacing
 \RequirePackage[]{graphicx}			% graphics import features
 \RequirePackage{tabularx}			% table features
-\RequirePackage{fancyhdr}			% for header and footer modifications
+\RequirePackage[
+    footwidth=foot:1.5cm+10pt+3pt:1.5cm+10pt+5pt               % footer offset (1.25pt is the thickness of the footerline)
+]{scrlayer-scrpage}	                        % for header and footer modifications
 \RequirePackage{enumitem}			% for simple list modifications
-\RequirePackage{blindtext}		% package for blind text
+\RequirePackage{blindtext}		        % package for blind text
 \RequirePackage{textcomp}			% different symbols
 \RequirePackage{hyperref} 			% interactive link inside the document
 
@@ -259,22 +279,6 @@
 %	}{}
 \fi
 %
-\RequirePackage[					% page layout modifications
-	paper=a4paper,					% 	- use A4 paper size
-	%scale={0.86,0.94},				% 	- total body size (h,v)
-	%scale={0.86,0.94},				% 	- total body size (h,v)
-	nohead,							% 	- no header
-	includefoot,					% 	- include footer space
-	includemp,						% 	- include side note space
-	bindingoffset=0.5cm,			% 	- binding correction
-	top=2.25cm,						% 	- total body: top margin
-	left=3.75cm,					% 	- total body: left margin (odd pages)
-	right=0.75cm,					% 	- total body: right margin (odd pages)
-	bottom=1.5cm,					% 	- total body: bottom margin
-	marginparwidth=1.75cm,			% 	- width for side note
-	marginparsep=10pt,				% 	- space between notes and body text (content)
-	footskip=2cm,					% 	- footer skip size
-]{geometry}
 %
 \RequirePackage[					% advanced quotes
 	strict=true,					% 	- warning are errors now
@@ -360,7 +364,6 @@
 % **************************************************
 % Header and Footer
 % **************************************************
-\pagestyle{fancy}
 \renewcommand{\chaptermark}[1]{%
 	\markboth{%
 		\footnotesize%
@@ -386,51 +389,57 @@
 		\fi%
 	}%
 }
+
+% Font style
+\newcommand*{\footerline}{{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}}
+\setkomafont{pageheadfoot}{\tgherosfont\footnotesize}
+\setkomafont{pagenumber}{\color{ctcolorfooterpage}\normalsize\textbf}
 %
-\fancypagestyle{plain}{%
-	\fancyhf{}
-	\fancyfootoffset[OR]{1.85cm}
-	\fancyfoot[OR]{%
-		{\ }\tgherosfont%
-		{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
-		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
-			\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
-		\end{minipage}%
-	}
-	\fancyfootoffset[EL]{1.85cm}
-	\fancyfoot[EL]{%
-		\tgherosfont%
-		\begin{minipage}[b]{1.5cm}%
-			\raggedleft\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
-		\end{minipage}%
-		\hspace*{10pt}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
-	}
-	\renewcommand{\headrulewidth}{0pt}
-	\renewcommand{\footrulewidth}{0pt}
+% lehead = left even head
+% lofoot = left odd foot
+% lohead = left odd head etc.
+% lehead[plain.scrheadings]{scrheadings}
+% even sides
+\lehead[]{}
+\rehead[]{}
+\lefoot[
+    {
+        \parbox[b]{1.5cm}{%
+            \raggedleft\pagemark%
+        }%
+        \hspace*{10pt}\footerline
+    }%
+]{
+    {
+        \parbox[b]{1.5cm}{%
+            \raggedleft\pagemark%
+        }%
+        \hspace*{10pt}\footerline%
+        \hspace*{0.75cm}\leftmark%
+    }
 }
-%
-\fancypagestyle{maincontentstyle}{%
-	\pagestyle{plain}
-	\fancyhf{}
-	\fancyfootoffset[OR]{1.85cm}
-	\fancyfoot[OR]{%
-		{\ }\tgherosfont\footnotesize%
-		\rightmark%
-		\hspace*{0.75cm}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
-		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
-			\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
-		\end{minipage}%
-	}
-	\fancyfootoffset[EL]{1.85cm}
-	\fancyfoot[EL]{%
-		\tgherosfont\footnotesize%
-		\begin{minipage}[b]{1.5cm}%
-			\raggedleft\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
-		\end{minipage}%
-		\footnotesize%
-		\hspace*{10pt}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
-		\hspace*{0.75cm}\leftmark%
-	}
+\refoot[]{}
+% odd sides
+\lohead[]{}
+\rohead[]{}
+\lofoot[]{}
+\rofoot[
+    {
+        {\ }
+        \footerline\hspace*{10pt}%
+        \parbox[b]{1.5cm}{%
+            \pagemark%
+        }%
+    }
+]{
+    {
+        {\ }
+        \rightmark\hspace*{0.75cm}%
+        \footerline\hspace*{10pt}%
+        \parbox[b]{1.5cm}{%
+            \pagemark%
+        }%
+    }
 }
 
 % **************************************************
