@@ -77,6 +77,11 @@
 \define@choicekey*[ct]{cthesis}{colortheme}[\val\themenr]{bluemagenta,bluegreen}[bluemagenta]{\def\cthesis@colortheme{\themenr}}
 \setkeys[ct]{cthesis}{colortheme=bluemagenta}
 
+% OPTION builtinbiblatex
+% --> values = true|false
+\define@boolkey[ct]{cthesis}{builtinbiblatex}[true]{}
+\setkeys[ct]{cthesis}{builtinbiblatex=true}
+
 % OPTION bibsys
 % --> values = biber|bibtex
 \define@choicekey*[ct]{cthesis}{bibsys}[\val\bibsysnr]{biber,bibtex}[bibtex]{\def\cthesis@bibsys{#1}}
@@ -281,30 +286,31 @@
 	style=german					% 	- german quotes
 ]{csquotes}
 %
-\RequirePackage[					% use biblatex for bibliography
-	backend=\cthesis@bibsys,		% 	- use biber backend (bibtex replacement) or bibtex
-	style=\cthesis@bibstyle,		% 	- use alphabetic (or numeric) bib style
-	natbib=true,					% 	- allow natbib commands
-	hyperref=true,					% 	- activate hyperref support
-	backref=true,					% 	- activate backrefs
-	isbn=false,						% 	- don't show isbn tags
-	url=false,						% 	- don't show url tags
-	doi=false,						% 	- don't show doi tags
-	urldate=long,					% 	- display type for dates
-	maxnames=3,%
-	minnames=1,%
-	maxbibnames=5,%
-	minbibnames=3,%
-	maxcitenames=2,%
-	mincitenames=1%
-]{biblatex}
-\bibliography{\cthesis@bibfile}
-\DefineBibliographyStrings{ngerman}{%
-	andothers = {{et\,al\adddot}}, % 'et al.' instead of 'u.a.'
-	backrefpage = {{zitiert auf Seite}},%
-	backrefpages = {{zitiert auf den Seiten}},%
-}
-
+\ifct@cthesis@builtinbiblatex
+	\RequirePackage[					% use biblatex for bibliography
+		backend=\cthesis@bibsys,		% 	- use biber backend (bibtex replacement) or bibtex
+		style=\cthesis@bibstyle,		% 	- use alphabetic (or numeric) bib style
+		natbib=true,					% 	- allow natbib commands
+		hyperref=true,					% 	- activate hyperref support
+		backref=true,					% 	- activate backrefs
+		isbn=false,						% 	- don't show isbn tags
+		url=false,						% 	- don't show url tags
+		doi=false,						% 	- don't show doi tags
+		urldate=long,					% 	- display type for dates
+		maxnames=3,%
+		minnames=1,%
+		maxbibnames=5,%
+		minbibnames=3,%
+		maxcitenames=2,%
+		mincitenames=1%
+	]{biblatex}
+	\bibliography{\cthesis@bibfile}
+	\DefineBibliographyStrings{ngerman}{%
+		andothers = {{et\,al\adddot}}, % 'et al.' instead of 'u.a.'
+		backrefpage = {{zitiert auf Seite}},%
+		backrefpages = {{zitiert auf den Seiten}},%
+	}
+\fi
 % **************************************************
 % Text Format
 % **************************************************
@@ -652,6 +658,7 @@
 %      the length indent and its numwidth to the length numwidth
 \cftsetindents{figure}{0em}{3em}
 \cftsetindents{table}{0em}{3em}
+\let\l@listing\l@figure % make list of listings look like lof
 %
 %
 %
