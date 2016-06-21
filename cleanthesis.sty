@@ -529,6 +529,19 @@
 %    i.e. \part, \chapter, \section, \subsection, \subsubsection, \paragraph
 %
 % ---------------------------
+% > formats: \part
+% ---------------------------
+\renewcommand*{\partpagestyle}{empty}
+\renewcommand*{\raggedpart}{\raggedleft}
+\renewcommand*\partheadmidvskip{\par\vspace*{3em}}
+\renewcommand*{\partformat}{%
+    \usekomafont{part}%
+    \thesispartlabelfont%
+    \partname\ \thepart\quad%
+    {\color{ctcolorpartline}\hspace*{-200pt}\rule[0pt]{600pt}{2pt}}%
+}
+%
+% ---------------------------
 % > formats: \chapter
 % ---------------------------
 \renewcommand*\chapterheadstartvskip{\vspace*{-8.75em}}
