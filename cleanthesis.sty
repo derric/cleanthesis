@@ -243,7 +243,7 @@
 \RequirePackage{blindtext}		% package for blind text
 \RequirePackage{textcomp}			% different symbols
 \RequirePackage{hyperref} 			% interactive link inside the document
-
+\RequirePackage{pbox}                           % dynamic sizing boxes
 %
 \RequirePackage[					% modify figure and table captions
 	font={small}, 					% 	- small font size
@@ -380,7 +380,7 @@
 		{\color{ctcolorfootermark}\textbf{\thesection}}%
 		\quad%
 		\ifct@cthesis@wrapfooter%
-			{\color{ctcolorfootertitle}\protect\parbox[t]{.7\textwidth}{#1}}%
+			{\color{ctcolorfootertitle}\protect\pbox[t]{.7\textwidth}{#1}}%
 		\else%
 			{\color{ctcolorfootertitle}#1}%
 		\fi%
