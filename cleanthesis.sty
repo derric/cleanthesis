@@ -42,11 +42,6 @@
 % in an easy way
 \RequirePackage{xkeyval}
 
-% OPTION sansserif
-% --> values = true|false
-\define@boolkey[ct]{cthesis}{sansserif}[true]{}
-\setkeys[ct]{cthesis}{sansserif=false}
-
 % OPTION hangfigurecaption
 % --> values = true|false
 \define@boolkey[ct]{cthesis}{hangfigurecaption}[true]{}
@@ -91,11 +86,6 @@
 % --> values = alphabetic|numeric|authoryear
 \define@choicekey*[ct]{cthesis}{bibstyle}[\val\bibstylenr]{alphabetic,numeric,authoryear}[alphabetic]{\def\cthesis@bibstyle{#1}}
 \setkeys[ct]{cthesis}{bibstyle=alphabetic}
-
-% OPTION wrapfooter
-% --> values = true|false
-\define@boolkey[ct]{cthesis}{wrapfooter}[false]{}
-\setkeys[ct]{cthesis}{wrapfooter=false}
 
 \DeclareOptionX*{
 	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
@@ -210,26 +200,12 @@
 % Font Definitions (see http://www.tug.dk/FontCatalogue/)
 % **************************************************
 \RequirePackage[T1]{fontenc}		% font types and character verification
-%\ifthenelse{\boolean{@sansserif}}%
-\ifct@cthesis@sansserif
-%	{%
-		% Using sans-serif fonts
-		%
-		%\RequirePackage{helvet}	% Font:	Helvetica
-		%\RequirePackage{nimbus}	% Font:	Nimbus Sans, a clone of the Helvetica
-		\RequirePackage{tgheros}	% Font:	TEX Gyre Heros
-		%\RequirePackage{libertine}	% Font:	Biolinum, the standard sans serif typeface with the Libertine package
-		%\RequirePackage[scaled]{berasans} % Font:	Bera Sans, a a version of Bitstream Vera Sans slightly enhanced
-		\renewcommand*\familydefault{\sfdefault}%
-%	}{%
-\else
-		% Using serif fonts
-		%
-		\RequirePackage{lmodern}	% font set: Latin Modern
-		\RequirePackage{charter}	% font set: Charter
-		%\RequirePackage{fourier}	% font set: (basically improved utopia)
-%	}
-\fi
+
+% Using serif fonts
+%
+\RequirePackage{lmodern}	% font set: Latin Modern
+\RequirePackage{charter}	% font set: Charter
+%\RequirePackage{fourier}	% font set: (basically improved utopia)
 
 % **************************************************
 % Load Packages
@@ -238,11 +214,12 @@
 \RequirePackage{setspace}			% for line spacing, e.g. \onehalfspacing
 \RequirePackage[]{graphicx}			% graphics import features
 \RequirePackage{tabularx}			% table features
-\RequirePackage{fancyhdr}			% for header and footer modifications
+%\RequirePackage{fancyhdr}			% for header and footer modifications
 \RequirePackage{enumitem}			% for simple list modifications
 \RequirePackage{blindtext}		% package for blind text
 \RequirePackage{textcomp}			% different symbols
 \RequirePackage{hyperref} 			% interactive link inside the document
+\RequirePackage[automark]{scrlayer-scrpage}
 
 %
 \RequirePackage[					% modify figure and table captions
@@ -259,22 +236,17 @@
 %	}{}
 \fi
 %
-\RequirePackage[					% page layout modifications
-	paper=a4paper,					% 	- use A4 paper size
-	%scale={0.86,0.94},				% 	- total body size (h,v)
-	%scale={0.86,0.94},				% 	- total body size (h,v)
-	nohead,							% 	- no header
-	includefoot,					% 	- include footer space
-	includemp,						% 	- include side note space
-	bindingoffset=0.5cm,			% 	- binding correction
-	top=2.25cm,						% 	- total body: top margin
-	left=3.75cm,					% 	- total body: left margin (odd pages)
-	right=0.75cm,					% 	- total body: right margin (odd pages)
-	bottom=1.5cm,					% 	- total body: bottom margin
-	marginparwidth=1.75cm,			% 	- width for side note
-	marginparsep=10pt,				% 	- space between notes and body text (content)
-	footskip=2cm,					% 	- footer skip size
-]{geometry}
+%
+% **************************************************
+% Page construction
+% **************************************************
+\KOMAoption{headinclude}{false}     % include header in body?
+\KOMAoption{footinclude}{false}      % include footer in body?
+\KOMAoption{footlines}{2.1}         % number of foot lines
+\KOMAoption{mpinclude}{false}       % include marginpar in body?
+\KOMAoption{BCOR}{25mm}             % binding correction
+\KOMAoption{DIV}{12}                % number of page divs (divider)
+%
 %
 \RequirePackage[					% advanced quotes
 	strict=true,					% 	- warning are errors now
@@ -360,78 +332,94 @@
 % **************************************************
 % Header and Footer
 % **************************************************
-\pagestyle{fancy}
+
+\automark[section]{chapter}         % automatically marks sections as rightmark
+                                    % and chapters as leftmark
+
+\setlength{\footheight}{120pt}      % avoids scrlayer-scrpage warning:
+                                    % footheight to low warning
+
+\setlength{\footskip}{185pt}        % BAD HACK that moves the foot downwards
+
+\KOMAoption{footwidth}{foot:53pt}   % BAD HACK that moves the foot towards
+                                    % the outer border
+
+\pagestyle{scrheadings}
+
+%% Redefinition of the chaptermark (used for footer mark on even (left) pages)
 \renewcommand{\chaptermark}[1]{%
-	\markboth{%
-		\footnotesize%
-		% use \@chapapp instead of \chaptername to avoid 'Chapter A Appendix ...', thanks to @farbverlust (issue #47)
-		{\color{ctcolorfootermark}\textbf{\@chapapp\ \thechapter}}%
-		\quad%
-		\ifct@cthesis@wrapfooter%
-			{\color{ctcolorfootertitle}\protect\parbox[t]{.7\textwidth}{#1}}%
-		\else%
-			{\color{ctcolorfootertitle}#1}%
-		\fi%
-	}{}%
+    \markboth{%
+        \ctfontfootertext
+        % use \@chapapp instead of \chaptername to avoid
+        % 'Chapter A Appendix ...', thanks to @farbverlust (issue #47)
+        {\color{ctcolorfootermark}\textbf{\@chapapp\ \thechapter}}%
+        \quad%
+        \protect\begin{minipage}[t]{.65\textwidth}%
+            #1%
+        \protect\end{minipage}%
+    }{}%
 }
+
+%% Redefinition of the sectionmark (used for footer mark on odd (right) pages)
+\newlength{\lensectionnumber}
 \renewcommand{\sectionmark}[1]{%
-	\markright{%
-		\footnotesize%
-		{\color{ctcolorfootermark}\textbf{\thesection}}%
-		\quad%
-		\ifct@cthesis@wrapfooter%
-			{\color{ctcolorfootertitle}\protect\parbox[t]{.7\textwidth}{#1}}%
-		\else%
-			{\color{ctcolorfootertitle}#1}%
-		\fi%
-	}%
+    \markright{%
+        \ctfontfootertext
+        \setlength{\lensectionnumber}{0em}
+        \settowidth{\lensectionnumber}{\textbf{\thesection}\quad}
+        \protect\begin{minipage}[t]{.72\textwidth}%
+            {\ }% bad hack to prevent a wrong baseline for the minipage
+            \protect\raggedleft%
+            \hangindent=\lensectionnumber%
+            {\color{ctcolorfootermark}\textbf{\thesection}}%
+            \quad%
+            #1%
+        \protect\end{minipage}%
+    }%
 }
-%
-\fancypagestyle{plain}{%
-	\fancyhf{}
-	\fancyfootoffset[OR]{1.85cm}
-	\fancyfoot[OR]{%
-		{\ }\tgherosfont%
-		{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
-		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
-			\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
-		\end{minipage}%
-	}
-	\fancyfootoffset[EL]{1.85cm}
-	\fancyfoot[EL]{%
-		\tgherosfont%
-		\begin{minipage}[b]{1.5cm}%
-			\raggedleft\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
-		\end{minipage}%
-		\hspace*{10pt}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
-	}
-	\renewcommand{\headrulewidth}{0pt}
-	\renewcommand{\footrulewidth}{0pt}
+
+%% Page number for odd (right) pages
+\newcommand{\ctfooterrightpagenumber}{%
+    {\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+    \hspace*{10pt}%
+    \begin{minipage}[b]{1.5cm}%
+        \ctfontpagenumber%
+        \thepage\ %
+    \end{minipage}%
 }
-%
-\fancypagestyle{maincontentstyle}{%
-	\pagestyle{plain}
-	\fancyhf{}
-	\fancyfootoffset[OR]{1.85cm}
-	\fancyfoot[OR]{%
-		{\ }\tgherosfont\footnotesize%
-		\rightmark%
-		\hspace*{0.75cm}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
-		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
-			\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
-		\end{minipage}%
-	}
-	\fancyfootoffset[EL]{1.85cm}
-	\fancyfoot[EL]{%
-		\tgherosfont\footnotesize%
-		\begin{minipage}[b]{1.5cm}%
-			\raggedleft\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
-		\end{minipage}%
-		\footnotesize%
-		\hspace*{10pt}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
-		\hspace*{0.75cm}\leftmark%
-	}
+
+%% Page number for even (left) pages
+\newcommand{\ctfooterleftpagenumber}{%
+    \begin{minipage}[b]{1.5cm}%
+        \ctfontpagenumber%
+        \raggedleft\thepage%
+    \end{minipage}%
+    \hspace*{10pt}%
+    {\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
 }
+
+%% Defines the content for header and footer
+\lehead{}
+\cehead{}
+\rehead{}
+\lohead{}
+\cohead{}
+\rohead{}
+\lefoot[\ctfooterleftpagenumber]{%
+    \ctfooterleftpagenumber%
+    \hspace*{0.75cm}%
+    \headmark%
+}
+\cefoot{}
+\refoot{}
+\lofoot{}
+\cofoot{}
+\rofoot[\ctfooterrightpagenumber]{%
+    \headmark%
+    \hspace*{0.75cm}%
+    \ctfooterrightpagenumber%
+}
+
 
 % **************************************************
 % New Commands
@@ -506,6 +494,15 @@
 \newcommand{\thesissectionfont}{\color{ctcolorsection}\normalfont\LARGE \tgherosfont}
 \newcommand{\thesissubsectionfont}{\color{ctcolorsubsection}\normalfont\Large \tgherosfont}
 \newcommand{\thesisparagraphfont}{\color{ctcolorparagraph}\tgherosfont\small\bfseries}
+
+\newcommand{\ctfontpagenumber}{%
+    \color{ctcolorfooterpage}%
+    \normalfont\normalsize\bfseries \tgherosfont%
+}
+\newcommand{\ctfontfootertext}{%
+    \color{ctcolorfootertitle}%
+    \normalfont\footnotesize \tgherosfont%
+}
 %
 % headings
 \setkomafont{part}{\thesispartfont} % for chapter entries

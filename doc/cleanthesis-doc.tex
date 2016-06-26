@@ -125,15 +125,11 @@ The following section gives an overview of all resources required by this packag
 \label{sec:userguide:pkgopt}
 
 All package options are given in \keyval notation.
-The value \texttt{true} can be omitted for all boolean keys, \eg \opt{sansserif} without a value is equivalent to \kvopt{sansserif}{true}.
+The value \texttt{true} can be omitted for all boolean keys, \eg \opt{hangsection} without a value is equivalent to \kvopt{hangsection}{true}.
 
 All of the following options must be used as \sty{cthesis} is loaded, \ie in the optional argument to \cmd{usepackage}.
 
 \begin{optionlist}
-
-\boolitem[false]{sansserif}
-
-Sets whether to use a sans serif font or not.
 
 \boolitem[false]{hangfigurecaption}
 
@@ -205,15 +201,6 @@ If this option is not used (defined), the package looks for the default bibliogr
 Sets whether to use an \texttt{alphabetic}, a \texttt{numeric}, or an \texttt{authoryear} reference style for the bibliography.
 For further information please check out the biblatex documentation\footnote{\url{http://www.ctan.org/pkg/biblatex}}.
 The default is \texttt{alphabetic}.
-
-\begin{figure}[th!]
-	\includegraphics[width=\textwidth]{wrapfooter}
-	\caption{The package option \texttt{wrapfooter} can be used to wrap very long chapter titles in the footer.}\label{fig:wrapfooter}
-\end{figure}
-
-\boolitem[false]{wrapfooter}
-
-Sets whether to wrap the name of a chapter in the footer or not (Figure \ref{fig:wrapfooter}).
 
 \end{optionlist}
 
