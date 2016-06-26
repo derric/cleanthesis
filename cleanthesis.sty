@@ -260,22 +260,17 @@
 %	}{}
 \fi
 %
-\RequirePackage[					% page layout modifications
-	paper=a4paper,					% 	- use A4 paper size
-	%scale={0.86,0.94},				% 	- total body size (h,v)
-	%scale={0.86,0.94},				% 	- total body size (h,v)
-	nohead,							% 	- no header
-	includefoot,					% 	- include footer space
-	includemp,						% 	- include side note space
-	bindingoffset=0.5cm,			% 	- binding correction
-	top=2.25cm,						% 	- total body: top margin
-	left=3.75cm,					% 	- total body: left margin (odd pages)
-	right=0.75cm,					% 	- total body: right margin (odd pages)
-	bottom=1.5cm,					% 	- total body: bottom margin
-	marginparwidth=1.75cm,			% 	- width for side note
-	marginparsep=10pt,				% 	- space between notes and body text (content)
-	footskip=2cm,					% 	- footer skip size
-]{geometry}
+%
+% **************************************************
+% Page construction
+% **************************************************
+\KOMAoption{headinclude}{false}     % include header in body?
+\KOMAoption{footinclude}{false}      % include footer in body?
+\KOMAoption{footlines}{2.1}         % number of foot lines
+\KOMAoption{mpinclude}{false}       % include marginpar in body?
+\KOMAoption{BCOR}{25mm}             % binding correction
+\KOMAoption{DIV}{12}                % number of page divs (divider)
+%
 %
 \RequirePackage[					% advanced quotes
 	strict=true,					% 	- warning are errors now
