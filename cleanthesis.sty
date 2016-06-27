@@ -335,16 +335,13 @@
 
 \automark[section]{chapter}         % automatically marks sections as rightmark
                                     % and chapters as leftmark
-
 \setlength{\footheight}{120pt}      % avoids scrlayer-scrpage warning:
                                     % footheight to low warning
-
 \setlength{\footskip}{185pt}        % BAD HACK that moves the foot downwards
-
 \KOMAoption{footwidth}{foot:53pt}   % BAD HACK that moves the foot towards
                                     % the outer border
-
-\pagestyle{scrheadings}
+\setkomafont{pagefoot}{\ctfontfootertext}           % font for footer
+\setkomafont{pagenumber}{\ctfontfooterpagenumber}   % font for page numbers
 
 %% Redefinition of the chaptermark (used for footer mark on even (left) pages)
 \renewcommand{\chaptermark}[1]{%
@@ -378,24 +375,27 @@
     }%
 }
 
+%% Vertical line in the footer (between page number and mark)
+\newcommand{\ctfooterline}{%
+    \color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}%
+}
+
 %% Page number for odd (right) pages
 \newcommand{\ctfooterrightpagenumber}{%
-    {\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+    \ctfooterline%
     \hspace*{10pt}%
     \begin{minipage}[b]{1.5cm}%
-        \ctfontpagenumber%
-        \thepage\ %
+        \pagemark\ %
     \end{minipage}%
 }
 
 %% Page number for even (left) pages
 \newcommand{\ctfooterleftpagenumber}{%
     \begin{minipage}[b]{1.5cm}%
-        \ctfontpagenumber%
-        \raggedleft\thepage%
+        \raggedleft\pagemark%
     \end{minipage}%
     \hspace*{10pt}%
-    {\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
+    \ctfooterline%
 }
 
 %% Defines the content for header and footer
@@ -405,7 +405,9 @@
 \lohead{}
 \cohead{}
 \rohead{}
-\lefoot[\ctfooterleftpagenumber]{%
+\lefoot[%   > plain
+    \ctfooterleftpagenumber%
+]{%         > srcheadings
     \ctfooterleftpagenumber%
     \hspace*{0.75cm}%
     \headmark%
@@ -414,7 +416,9 @@
 \refoot{}
 \lofoot{}
 \cofoot{}
-\rofoot[\ctfooterrightpagenumber]{%
+\rofoot[%   > plain
+    \ctfooterrightpagenumber%
+]{%         > srcheadings
     \headmark%
     \hspace*{0.75cm}%
     \ctfooterrightpagenumber%
@@ -495,7 +499,7 @@
 \newcommand{\thesissubsectionfont}{\color{ctcolorsubsection}\normalfont\Large \tgherosfont}
 \newcommand{\thesisparagraphfont}{\color{ctcolorparagraph}\tgherosfont\small\bfseries}
 
-\newcommand{\ctfontpagenumber}{%
+\newcommand{\ctfontfooterpagenumber}{%
     \color{ctcolorfooterpage}%
     \normalfont\normalsize\bfseries \tgherosfont%
 }
