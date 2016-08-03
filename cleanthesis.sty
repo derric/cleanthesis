@@ -92,6 +92,11 @@
 \define@choicekey*[ct]{cthesis}{bibstyle}[\val\bibstylenr]{alphabetic,numeric,authoryear}[alphabetic]{\def\cthesis@bibstyle{#1}}
 \setkeys[ct]{cthesis}{bibstyle=alphabetic}
 
+% OPTION bibsorting
+% --> values = nty|nyt|nyvt|anyt|anyvt|ynt|ydnt|none|debug
+\define@choicekey*[ct]{cthesis}{bibsorting}[\val\bibsortingnr]{nty,nyt,nyvt,anyt,anyvt,ynt,ydnt,none,debug}[nty]{\def\cthesis@bibsorting{#1}}
+\setkeys[ct]{cthesis}{bibsorting=nty}
+
 % OPTION wrapfooter
 % --> values = true|false
 \define@boolkey[ct]{cthesis}{wrapfooter}[false]{}
@@ -291,6 +296,7 @@
 	url=false,						% 	- don't show url tags
 	doi=false,						% 	- don't show doi tags
 	urldate=long,					% 	- display type for dates
+	sorting=\cthesis@bibsorting,	%	- order in which the items appear in the bibliography
 	maxnames=3,%
 	minnames=1,%
 	maxbibnames=5,%
