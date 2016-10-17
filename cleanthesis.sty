@@ -364,9 +364,14 @@
 \renewcommand{\chaptermark}[1]{%
 	\markboth{%
 		\footnotesize%
-		% use \@chapapp instead of \chaptername to avoid 'Chapter A Appendix ...', thanks to @farbverlust (issue #47)
-		{\color{ctcolorfootermark}\textbf{\@chapapp\ \thechapter}}%
-		\quad%
+		% http://tex.stackexchange.com/questions/290400/remove-chapter-0-from-header-in-frontmatter-chapters-with-fancyhdr/290403
+    \ifnum \c@secnumdepth > \m@ne%
+      \if@mainmatter%
+        % use \@chapapp instead of \chaptername to avoid 'Chapter A Appendix ...', thanks to @farbverlust (issue #47)
+        {\color{ctcolorfootermark}\textbf{\@chapapp\ \thechapter}}%
+        \quad%
+      \fi%
+    \fi%
 		\ifct@cthesis@wrapfooter%
 			{\color{ctcolorfootertitle}\protect\parbox[t]{.7\textwidth}{#1}}%
 		\else%
