@@ -8,6 +8,6 @@ latexmk -silent -c "$@"
 # git clean -fdX
 
 # Uncomment to remove pdf on clean
-rm my-thesis.pdf
+# rm my-thesis.pdf
 
 popd >/dev/null
