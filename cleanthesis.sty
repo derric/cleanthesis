@@ -73,8 +73,8 @@
 \setkeys[ct]{cthesis}{colorize=full}
 
 % OPTION colortheme
-% --> values = bluemagenta|bluegreen
-\define@choicekey*[ct]{cthesis}{colortheme}[\val\themenr]{bluemagenta,bluegreen}[bluemagenta]{\def\cthesis@colortheme{\themenr}}
+% --> values = bluemagenta|bluegreen|graygray
+\define@choicekey*[ct]{cthesis}{colortheme}[\val\themenr]{bluemagenta,bluegreen,graygray}[bluemagenta]{\def\cthesis@colortheme{\themenr}}
 \setkeys[ct]{cthesis}{colortheme=bluemagenta}
 
 % OPTION bibsys
@@ -188,6 +188,11 @@
 	\cthesissetcolor{cmyk}{.61, .47, .03, 0}{.48, .05, .91, 0}%
 }
 
+% sets the gray-gray color theme (gray/gray)
+\def\cthesissetcolorgraygray{%
+	\cthesissetcolor{cmyk}{.80, .80, .80, 0}{.60, .60, .60, 0}%
+}
+
 % defines general colors
 \definecolor{ctcolorblack}{gray}{0}
 \definecolor{ctcolorgray}{gray}{.5}
@@ -200,6 +205,9 @@
 \or
 	% case 1 (colortheme == bluegreen)
 	\cthesissetcolorbluegreen
+\or
+	% case 1 (colortheme == graygray)
+	\cthesissetcolorgraygray
 \else
 	% all other cases
 	\cthesissetcolorbluemagenta
