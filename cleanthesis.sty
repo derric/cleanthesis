@@ -62,6 +62,11 @@
 \define@boolkey[ct]{cthesis}{sansserif}[false]{}
 \setkeys[ct]{cthesis}{sansserif=false}
 
+% OPTION configurelistings
+% --> values = true|false
+\define@boolkey[ct]{cthesis}{configurelistings}[false]{}
+\setkeys[ct]{cthesis}{configurelistings=false}
+
 % OPTION figuresep
 % --> values = none|colon|period|space|quad|endash
 \define@choicekey*[ct]{cthesis}{figuresep}{none,colon,period,space,quad,newline,endash}[endash]{\def\cthesis@figuresep{#1}}
@@ -187,6 +192,7 @@
 \definecolor{ctcolorblack}{gray}{0}
 \definecolor{ctcolorgray}{gray}{.5}
 \definecolor{ctcolorgraylight}{gray}{.8}
+\definecolor{ctcolorgraylighter}{gray}{.95}
 
 % sets the color theme regarding the given package option colortheme
 \ifcase\cthesis@colortheme
@@ -301,6 +307,31 @@
 \clubpenalty = 10000				% prevent single lines at the beginning of a paragraph (Schusterjungen)
 \widowpenalty = 10000				% prevent single lines at the end of a paragraph (Hurenkinder)
 \displaywidowpenalty = 10000		%
+
+% **************************************************
+% Listing Format
+% **************************************************
+\ifct@cthesis@configurelistings
+	\RequirePackage{listings}			% package for listings
+	\lstset{%
+		backgroundcolor=\color{ctcolorgraylighter},
+		linewidth=\textwidth,
+		xleftmargin=10pt,
+		captionpos=b,
+		showspaces=false,
+		showstringspaces=false,
+		showtabs=false,
+		tabsize=2,
+		basicstyle=\footnotesize\ttfamily,
+		frame=leftline,
+		framerule=3pt,
+		framexleftmargin=4pt,
+		rulecolor=\color{ctcolorgraylight},
+		numbers=left,
+		numberstyle=\footnotesize\sffamily\color{ctcolorgray},
+		numbersep=15pt
+	}
+\fi
 
 % **************************************************
 % List Definitions
@@ -625,11 +656,12 @@
 %
 %
 % **************************************************
-% ToC, LoF, LoT
+% ToC, LoF, LoT, LoL
 % **************************************************
 %
 % -- modifications regarding the table of contents,
-%    the list of figures and the list of tables
+%    the list of figures, list of tables,
+%    and list of listings
 %
 %
 % The tocloft package enables us to control the typographic design of the
@@ -647,6 +679,23 @@
 %      the length indent and its numwidth to the length numwidth
 \cftsetindents{figure}{0em}{3em}
 \cftsetindents{table}{0em}{3em}
+%
+%
+\ifct@cthesis@configurelistings
+	% makes lol to look like lof
+	\makeatletter
+	\begingroup\let\newcounter\@gobble\let\setcounter\@gobbletwo
+		\globaldefs\@ne \let\c@loldepth\@ne
+		\newlistof{listings}{lol}{\lstlistlistingname}
+	\endgroup
+	\let\l@lstlisting\l@listings
+	\AtBeginDocument{\addtocontents{lol}{\protect\addvspace{10\p@}}}
+	\makeatother
+	\renewcommand{\lstlistoflistings}{\listoflistings}
+	\renewcommand\lstlistlistingname{List of Listings}
+	\renewcommand{\cftloltitlefont}{\thesischapterfont}
+	\cftsetindents{listings}{0em}{3em}
+\fi
 %
 %
 %
