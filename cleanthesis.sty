@@ -42,6 +42,11 @@
 % in an easy way
 \RequirePackage{xkeyval}
 
+% OPTION sansserif
+% --> values = true|false
+\define@boolkey[ct]{cthesis}{sansserif}[true]{}
+\setkeys[ct]{cthesis}{sansserif=false}
+
 % OPTION hangfigurecaption
 % --> values = true|false
 \define@boolkey[ct]{cthesis}{hangfigurecaption}[true]{}
@@ -201,11 +206,25 @@
 % **************************************************
 \RequirePackage[T1]{fontenc}		% font types and character verification
 
-% Using serif fonts
-%
-\RequirePackage{lmodern}	% font set: Latin Modern
-\RequirePackage{charter}	% font set: Charter
-%\RequirePackage{fourier}	% font set: (basically improved utopia)
+\ifct@cthesis@sansserif
+%	{%
+		% Using sans-serif fonts
+		%
+		%\RequirePackage{helvet}	% Font:	Helvetica
+		%\RequirePackage{nimbus}	% Font:	Nimbus Sans, a clone of the Helvetica
+		\RequirePackage{tgheros}	% Font:	TEX Gyre Heros
+		%\RequirePackage{libertine}	% Font:	Biolinum, the standard sans serif typeface with the Libertine package
+		%\RequirePackage[scaled]{berasans} % Font:	Bera Sans, a a version of Bitstream Vera Sans slightly enhanced
+		\renewcommand*\familydefault{\sfdefault}%
+\else
+%}	{%
+		% Using serif fonts
+		%
+		\RequirePackage{lmodern}	% font set: Latin Modern
+		\RequirePackage{charter}	% font set: Charter
+		%\RequirePackage{fourier}	% font set: (basically improved utopia)
+%	}%
+\fi
 
 % **************************************************
 % Load Packages
