@@ -50,6 +50,11 @@
 
 
 %\setcounter{secnumdepth}{4}
+% > adjust depth of the toc and removes the indention
+\setcounter{tocdepth}{3}
+\AtBeginToc{\setcounter{tocdepth}{3}}
+\AtEndToc{\setcounter{tocdepth}{5}}
+\KOMAoption{toc}{flat}
 
 \begin{document}
 
