@@ -224,6 +224,20 @@ Sets whether to use an \texttt{alphabetic}, a \texttt{numeric}, or an \texttt{au
 For further information please check out the biblatex documentation\footnote{\url{http://www.ctan.org/pkg/biblatex}}.
 The default is \texttt{alphabetic}.
 
+\optitem[nty]{bibsorting}{biblatex sorting options}
+
+Sets the sorting order of the bibliography.
+This is a direct interface to the corresponding option of the biblatex package.
+For further information please check out the biblatex documentation \url{http://www.ctan.org/pkg/biblatex}.
+The default is \texttt{nty}.
+Some popular options include:
+
+\begin{valuelist}
+\item[nty] (default) Sort by name, title, year
+\item[nyt] Sort by name, year, title
+\item[none] No sorting at all, entries are processed in the order of their citation
+\end{valuelist}
+
 \end{optionlist}
 
 \end{document}

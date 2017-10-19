@@ -102,6 +102,11 @@
 \define@choicekey*[ct]{cthesis}{bibstyle}[\val\bibstylenr]{alphabetic,numeric,authoryear}[alphabetic]{\def\cthesis@bibstyle{#1}}
 \setkeys[ct]{cthesis}{bibstyle=alphabetic}
 
+% OPTION bibsorting
+% --> values = biblatex sorting options
+\define@key[ct]{cthesis}{bibsorting}[nty]{\def\cthesis@bibsorting{#1}}
+\setkeys[ct]{cthesis}{bibsorting=nty}
+
 \DeclareOptionX*{
 	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
 }
@@ -300,7 +305,8 @@
 		maxbibnames=5,%
 		minbibnames=3,%
 		maxcitenames=2,%
-		mincitenames=1%
+		mincitenames=1,%,
+		sorting=\cthesis@bibsorting%
 	]{biblatex}
 	\bibliography{\cthesis@bibfile}
 	\DefineBibliographyStrings{ngerman}{%
