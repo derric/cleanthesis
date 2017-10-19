@@ -192,6 +192,15 @@ The following values are allowed:
 \item[bluegreen] Headlines and titles use a blue color, figure labels use green.
 \end{valuelist}
 
+
+\subsubsection{Setup Your Bibliography}
+
+\boolitem[false]{configurebiblatex}
+
+Sets whether to use and configure the package biblatex within the template.
+
+If this option is set to false, you can setup your bibliography environment by yourself depending on your individual needs or requirements. In this case, you have to include something like \cs{usepackage\{biblatex\}} and \cs{bibliography\{bib-refs\}} in your preamble (i.e., before the \cs{begin\{document\}} statement).
+
 \optitem[bibtex]{bibsys}{\opt{biber},\opt{bibtex}}
 
 Sets whether to use \texttt{biber} or \texttt{bibtex} as citation management tool (engine).

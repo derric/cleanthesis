@@ -67,6 +67,11 @@
 \define@boolkey[ct]{cthesis}{configurelistings}[false]{}
 \setkeys[ct]{cthesis}{configurelistings=false}
 
+% OPTION configurebiblatex
+% --> values = true|false
+\define@boolkey[ct]{cthesis}{configurebiblatex}[false]{}
+\setkeys[ct]{cthesis}{configurebiblatex=false}
+
 % OPTION figuresep
 % --> values = none|colon|period|space|quad|endash
 \define@choicekey*[ct]{cthesis}{figuresep}{none,colon,period,space,quad,newline,endash}[endash]{\def\cthesis@figuresep{#1}}
@@ -275,29 +280,35 @@
 	style=german					% 	- german quotes
 ]{csquotes}
 %
-\RequirePackage[					% use biblatex for bibliography
-	backend=\cthesis@bibsys,		% 	- use biber backend (bibtex replacement) or bibtex
-	style=\cthesis@bibstyle,		% 	- use alphabetic (or numeric) bib style
-	natbib=true,					% 	- allow natbib commands
-	hyperref=true,					% 	- activate hyperref support
-	backref=true,					% 	- activate backrefs
-	isbn=false,						% 	- don't show isbn tags
-	url=false,						% 	- don't show url tags
-	doi=false,						% 	- don't show doi tags
-	urldate=long,					% 	- display type for dates
-	maxnames=3,%
-	minnames=1,%
-	maxbibnames=5,%
-	minbibnames=3,%
-	maxcitenames=2,%
-	mincitenames=1%
-]{biblatex}
-\bibliography{\cthesis@bibfile}
-\DefineBibliographyStrings{ngerman}{%
-	andothers = {{et\,al\adddot}}, % 'et al.' instead of 'u.a.'
-	backrefpage = {{zitiert auf Seite}},%
-	backrefpages = {{zitiert auf den Seiten}},%
-}
+
+% **************************************************
+% Bibliography
+% **************************************************
+\ifct@cthesis@configurebiblatex
+	\RequirePackage[					% use biblatex for bibliography
+		backend=\cthesis@bibsys,		% 	- use biber backend (bibtex replacement) or bibtex
+		style=\cthesis@bibstyle,		% 	- use alphabetic (or numeric) bib style
+		natbib=true,					% 	- allow natbib commands
+		hyperref=true,					% 	- activate hyperref support
+		backref=true,					% 	- activate backrefs
+		isbn=false,						% 	- don't show isbn tags
+		url=false,						% 	- don't show url tags
+		doi=false,						% 	- don't show doi tags
+		urldate=long,					% 	- display type for dates
+		maxnames=3,%
+		minnames=1,%
+		maxbibnames=5,%
+		minbibnames=3,%
+		maxcitenames=2,%
+		mincitenames=1%
+	]{biblatex}
+	\bibliography{\cthesis@bibfile}
+	\DefineBibliographyStrings{ngerman}{%
+		andothers = {{et\,al\adddot}}, % 'et al.' instead of 'u.a.'
+		backrefpage = {{zitiert auf Seite}},%
+		backrefpages = {{zitiert auf den Seiten}},%
+	}
+\fi
 
 % **************************************************
 % Text Format
