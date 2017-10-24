@@ -107,6 +107,11 @@
 \define@key[ct]{cthesis}{bibsorting}[nty]{\def\cthesis@bibsorting{#1}}
 \setkeys[ct]{cthesis}{bibsorting=nty}
 
+% OPTION quotesstyle
+% --> values = csquotes style options
+\define@key[ct]{cthesis}{quotesstyle}[english]{\def\cthesis@quotesstyle{#1}}
+\setkeys[ct]{cthesis}{quotesstyle=english}
+
 \DeclareOptionX*{
 	\PackageWarning{cleanthesis}{Unknown option ‘\CurrentOption’}%
 }
@@ -282,7 +287,7 @@
 %
 \RequirePackage[					% advanced quotes
 	strict=true,					% 	- warning are errors now
-	style=german					% 	- german quotes
+	style=\cthesis@quotesstyle		% 	- german quotes
 ]{csquotes}
 %
 
