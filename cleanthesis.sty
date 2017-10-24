@@ -98,8 +98,8 @@
 \setkeys[ct]{cthesis}{bibfile=bib-refs}
 
 % OPTION bibstyle
-% --> values = alphabetic|numeric|authoryear
-\define@choicekey*[ct]{cthesis}{bibstyle}[\val\bibstylenr]{alphabetic,numeric,authoryear}[alphabetic]{\def\cthesis@bibstyle{#1}}
+% --> values = biblatex style options
+\define@key[ct]{cthesis}{bibstyle}[alphabetic]{\def\cthesis@bibstyle{#1}}
 \setkeys[ct]{cthesis}{bibstyle=alphabetic}
 
 % OPTION bibsorting

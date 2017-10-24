@@ -218,11 +218,21 @@ The default (still) is \texttt{bibtex}.
 Sets the file name of the bibtex file used for the bibliography.
 If this option is not used (defined), the package looks for the default bibliography \texttt{bib-refs.bib}.
 
-\optitem[alphabetic]{bibstyle}{\opt{alphabetic},\opt{numeric},\opt{authoryear}}
+\optitem[alphabetic]{bibstyle}{biblatex style options}
 
-Sets whether to use an \texttt{alphabetic}, a \texttt{numeric}, or an \texttt{authoryear} reference style for the bibliography.
-For further information please check out the biblatex documentation\footnote{\url{http://www.ctan.org/pkg/biblatex}}.
+Sets the bibliography style.
+This is a direct interface to the corresponding style option of the biblatex package.
+For further information please check out the biblatex documentation \url{http://www.ctan.org/pkg/biblatex}.
 The default is \texttt{alphabetic}.
+Two popular options are:
+
+\begin{valuelist}
+\item[alphabetic] (default) Prints labels similar to the traditional BibTeX style \texttt{alpha.bst}, for instance \texttt{[Lan+15]} or \texttt{[LHD17]}
+\item[numeric] Uses numeric labels, such as \texttt{[1]} or \texttt{[37]}
+\end{valuelist}
+
+However, you can also pass non-standard options to make use of other bibliography packages for biblatex.
+For example, by setting the option \texttt{style=ieee} or \texttt{style=ieee-alphabetic} you can use the biblatex-ieee package (see \url{https://ctan.org/pkg/biblatex-ieee}).
 
 \optitem[nty]{bibsorting}{biblatex sorting options}
 
