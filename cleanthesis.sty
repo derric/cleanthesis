@@ -82,6 +82,11 @@
 \define@choicekey*[ct]{cthesis}{bibsys}[\val\bibsysnr]{biber,bibtex}[bibtex]{\def\cthesis@bibsys{#1}}
 \setkeys[ct]{cthesis}{bibsys=bibtex}
 
+% OPTION bibsorting
+% --> values = nty|nyt|nyvt|anyt|anyvt|ynt|ydnt|none
+\define@choicekey*[ct]{cthesis}{bibsorting}[\val\bibsrt]{nty,nyt,nyvt,anyt,anyvt,ynt,ydnt,none}[bibtex]{\def\cthesis@bibsorting{#1}}
+\setkeys[ct]{cthesis}{bibsorting=nty}
+
 % OPTION bibfile
 % --> values = file name of your bibtex file
 \define@key[ct]{cthesis}{bibfile}[bib-refs]{\def\cthesis@bibfile{#1}}
@@ -284,6 +289,7 @@
 \RequirePackage[					% use biblatex for bibliography
 	backend=\cthesis@bibsys,		% 	- use biber backend (bibtex replacement) or bibtex
 	style=\cthesis@bibstyle,		% 	- use alphabetic (or numeric) bib style
+	sorting=\cthesis@bibsorting,		%	- use sorting (default nty)
 	natbib=true,					% 	- allow natbib commands
 	hyperref=true,					% 	- activate hyperref support
 	backref=true,					% 	- activate backrefs
