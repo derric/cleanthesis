@@ -1,0 +1,1 @@
+ln -s ../cleanthesis.sty ./example-thesis/cleanthesis.sty
