@@ -5,7 +5,7 @@
     paper=A4,               % paper size --> A4 is default in Germany
     twoside=true,           % onesite or twoside printing
     openright,              % doublepage cleaning ends up right side
-    parskip=full,           % spacing value / method for paragraphs
+    parskip=half,           % spacing value / method for paragraphs
     chapterprefix=true,     % prefix for chapter marks
     11pt,                   % font size
     headings=normal,        % size of headings
@@ -13,6 +13,8 @@
     listof=totoc,           % include listof entries in toc
     titlepage=on,           % own page for each title page
     captions=tableabove,    % display table captions above the float env
+    chapterprefix=false,    % do not display a prefix for chapters
+    appendixprefix=false,    % but display a prefix for appendix chapter
     draft=false,            % value for draft version
 ]{scrreprt}%
 
@@ -27,6 +29,11 @@
 % Document CONTENT
 % **************************************************
 \begin{document}
+
+% uncomment the following command to fill up pages with
+% whitespace instead of aligning the first and last lines
+% of a page (see \raggedbottom vs. \flushbottom)
+%\raggedbottom
 
 % --------------------------
 % rename document parts
@@ -51,6 +58,7 @@
 \input{content/acknowledgement} % INCLUDE: acknowledgement
 \cleardoublepage
 %
+\currentpdfbookmark{\contentsname}{toc}
 \setcounter{tocdepth}{2}		% define depth of toc
 \tableofcontents				% display table of contents
 \cleardoublepage
@@ -60,10 +68,15 @@
 % --------------------------
 \pagenumbering{arabic}			% arabic page numbering
 \setcounter{page}{1}			% set page counter
-\pagestyle{maincontentstyle} 	% fancy header and footer
+\pagestyle{scrheadings}			% header and footer style
 
+%% Uncomment the following lines using the \part command
+%% to add part sections
+%\part{Example Part}
 \input{content/chapter-introduction}   % INCLUDE: introduction
 \input{content/chapter-related-work}   % INCLUDE: related work
+
+%\part{Additional Example Part}
 \input{content/chapter-system}         % INCLUDE: system
 \input{content/chapter-concepts}       % INCLUDE: concepts
 \input{content/chapter-conclusion}     % INCLUDE: conclusion
@@ -71,8 +84,6 @@
 % --------------------------
 % Back matter
 % --------------------------
-\appendix\cleardoublepage
-\input{content/chapter-appendix}       % INCLUDE: appendix
 %
 {%
 \setstretch{1.1}
@@ -80,7 +91,8 @@
 \setlength{\biblabelsep}{0pt}
 \setlength{\bibitemsep}{0.5\baselineskip plus 0.5\baselineskip}
 \printbibliography[nottype=online]
-\printbibliography[heading=subbibliography,title={Webpages},type=online,prefixnumbers={@}]
+\newrefcontext[labelprefix={@}]
+\printbibliography[heading=subbibliography,title={Webpages},type=online]
 }
 \cleardoublepage
 
@@ -90,11 +102,19 @@
 \listoftables
 \cleardoublepage
 
-\input{content/colophon}
+\lstlistoflistings
 \cleardoublepage
 
+\appendix\cleardoublepage
+\input{content/chapter-appendix}       % INCLUDE: appendix
+
+\cleardoublepage
+\input{content/colophon}
+
+\cleardoublepage
 \input{content/declaration}
 \clearpage
+
 \newpage
 \mbox{}
 

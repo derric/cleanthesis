@@ -1,7 +1,7 @@
 ---
 
 CHANGELOG.md
-Copyright 2016 R. Langner
+Copyright 2019 R. Langner
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
@@ -26,6 +26,19 @@ The latest version of this file can be found at the master branch of the
 
 ## Latest Dev
 - ...
+
+## v0.4.0
+- Fixed compatibility to new version of KOMA script
+- Fixed code for headline/title styles (e.g., removed use of package titlesec)
+- Fixed code for footer style (e.g., removed use of package fancyhdr)
+- Fixed compatibility to new version of biblatex (e.g., obsolete options)
+- Fixed an issue with page breaks at headings (thanks @guillerodriguez)
+- Added style for part sections (often used for books)
+- Added new package options: quotation style, bibliography sorting, 
+- Changed alignment of titles from justified to left aligned
+- Changed the documentation according the updates
+- Changed file structure of the repository in order to improve the development and release process
+- Example: several improvements, such as location of appendix, use of subsubsections and paragraphs, long section titles, listings, pdf bookmark for toc, or separate config file
 
 ## v0.3.1
 - re-licensed cleanthesis using the LPPL 1.3, http://www.latex-project.org/lppl.txt

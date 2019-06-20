@@ -14,7 +14,7 @@
 \newcommand{\thesisTitle}{The Clean Thesis Style}
 \newcommand{\thesisName}{Ricardo Langner}
 \newcommand{\thesisSubject}{Documentation}
-\newcommand{\thesisDate}{October 4, 2015}
+\newcommand{\thesisDate}{June 21, 2016}
 \newcommand{\thesisVersion}{My First Draft}
 
 \newcommand{\thesisFirstReviewer}{Jane Doe}
@@ -49,16 +49,18 @@
 \usepackage[english]{babel} % babel system, adjust the language of the content
 \PassOptionsToPackage{% setup clean thesis style
     figuresep=colon,%
-    sansserif=false,%
     hangfigurecaption=false,%
     hangsection=true,%
     hangsubsection=true,%
+    sansserif=false,%
+    configurelistings=true,%
     colorize=full,%
     colortheme=bluemagenta,%
+    configurebiblatex=true,%
     bibsys=biber,%
     bibfile=bib-refs,%
     bibstyle=alphabetic,%
-    wrapfooter=false,%
+    bibsorting=nty,%
 }{cleanthesis}
 \usepackage{cleanthesis}
 

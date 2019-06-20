@@ -28,7 +28,40 @@ Germany
 
 \subsection{Some References}
 \label{sec:intro:results:refs}
+
 \cite{WEB:GNU:GPL:2010,WEB:Miede:2011}
+\Blindtext[1][1]
+
+\subsubsection{Methodology}
+\label{sec:intro:results:refs:method}
+
+\Blindtext[1][2]
+
+\paragraph{Strategy 1}
+\Blindtext[1][1]
+
+\begin{lstlisting}[language=Python, caption={This simple helloworld.py file prints Hello World.}\label{lst:pyhelloworld}]
+#!/usr/bin/env python
+print "Hello World"
+\end{lstlisting}
+
+\paragraph{Strategy 2}
+\Blindtext[1][1]
+
+\begin{lstlisting}[language=Python, caption={This is a bubble sort function.}\label{lst:pybubblesort}]
+#!/usr/bin/env python
+def bubble_sort(list):
+    for num in range(len(list)-1,0,-1):
+        for i in range(num):
+            if list[i]>list[i+1]:
+                tmp = list[i]
+                list[i] = list[i+1]
+                list[i+1] = tmp
+
+alist = [34,67,2,4,65,16,17,95,20,31]
+bubble_sort(list)
+print(list)
+\end{lstlisting}
 
 \section{Thesis Structure}
 \label{sec:intro:structure}

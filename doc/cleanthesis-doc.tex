@@ -1,5 +1,5 @@
 %% cleanthesis-doc.tex
-%% Copyright 2016 R. Langner
+%% Copyright 2019 R. Langner
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -27,8 +27,6 @@
 \usepackage{pifont}
 \usepackage{graphicx}
 
-\rcsid{$Id: cleanthesis.tex,v 0.3.1 2015/08/26 23:32:00 derric stable $}
-
 \newcommand*{\cleanthesis}{\emph{Clean Thesis}\xspace}
 \newcommand*{\cthesishome}{http://cleanthesis.der-ric.de/}
 %\newcommand*{\cthesisctan}{http://www.ctan.org/tex-archive/macros/latex/contrib/../}
@@ -39,8 +37,8 @@
   url={\cthesishome},
   author={Ricardo Langner},
   email={info@cleanthesis.der-ric.de},
-  revision={\rcsrevision},
-  date={\rcstoday}}
+  revision={0.4.0},
+  date={2019/06/21}}
 
 \hypersetup{%
   pdftitle={The \cleanthesis Package},
@@ -50,6 +48,11 @@
 
 
 %\setcounter{secnumdepth}{4}
+% > adjust depth of the toc and removes the indention
+\setcounter{tocdepth}{3}
+\AtBeginToc{\setcounter{tocdepth}{3}}
+\AtEndToc{\setcounter{tocdepth}{5}}
+\KOMAoption{toc}{flat}
 
 \begin{document}
 
@@ -84,7 +87,7 @@ Alfred-Schrapel-Str. 7 \\
 \subsection{License}
 \label{sec:intro:license}
 
-Copyright \textcopyright\ 2016 R. Langner
+Copyright \textcopyright\ 2019 R. Langner
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
@@ -108,7 +111,7 @@ This work consists of all files listed in MANIFEST.md.
 
 First of all I would like to thank André Miede. He is the author of the Classic Thesis style. His Classic Thesis style inspired end encouraged me to publish my own thesis style. Thank you André for doing a great job.
 
-I would like to thank the following people for using the \cleanthesis style and giving important initial feedback to me, e.g., features, bugs: (1) \textbf{Sebastian Kleinau}\footnote{\url{http://www.sk-downloading.de/} (in German only)} in his bachelor thesis, (2) \textbf{Mathias Frisch}\footnote{\url{http://wwwpub.zih.tu-dresden.de/~frisch/}} in his dissertation (PhD), and (3) \textbf{Anton Augsburg}\footnote{\url{http://antonaugsburg.de/} (in German only)} in his project thesis.
+I would like to thank the following people for using the \cleanthesis style and providing me important initial feedback (e.g., features, bugs): (1) \textbf{Sebastian Kleinau} in his bachelor thesis, (2) \textbf{Mathias Frisch} in his dissertation (PhD), and (3) \textbf{Anton Augsburg} in his project thesis.
 
 \subsection{Prerequisites}
 \label{sec:intro:pre}
@@ -125,15 +128,11 @@ The following section gives an overview of all resources required by this packag
 \label{sec:userguide:pkgopt}
 
 All package options are given in \keyval notation.
-The value \texttt{true} can be omitted for all boolean keys, \eg \opt{sansserif} without a value is equivalent to \kvopt{sansserif}{true}.
+The value \texttt{true} can be omitted for all boolean keys, \eg \opt{hangsection} without a value is equivalent to \kvopt{hangsection}{true}.
 
 All of the following options must be used as \sty{cthesis} is loaded, \ie in the optional argument to \cmd{usepackage}.
 
 \begin{optionlist}
-
-\boolitem[false]{sansserif}
-
-Sets whether to use a sans serif font or not.
 
 \boolitem[false]{hangfigurecaption}
 
@@ -146,6 +145,14 @@ Sets whether to use a hanging section label (placed in page margin) or not.
 \boolitem[true]{hangsubsection}
 
 Sets whether to use a hanging sub-section label (placed in page margin) or not.
+
+\boolitem[false]{sansserif}
+
+Sets whether to use a sans serif font or not.
+
+\boolitem[false]{configurelistings}
+
+Sets whether to use the package listings and to configure the visual appearance of lstlisting environments.
 
 \optitem[endash]{figuresep}{\opt{none},\opt{colon},\opt{period},\opt{space},\opt{quad},\opt{endash}}
 
@@ -188,6 +195,23 @@ The following values are allowed:
 \item[bluegreen] Headlines and titles use a blue color, figure labels use green.
 \end{valuelist}
 
+\optitem[english]{quotesstyle}{csquotes style options}
+
+Sets the quote style.
+This is a direct interface to the corresponding style option of the csquotes package.
+For further information please check out the csquotes documentation \url{https://www.ctan.org/pkg/csquotes}.
+The default is \texttt{english}.
+For individual settings, for instance German quotes, you can use \texttt{quotesstyle=german}.
+
+
+\subsubsection{Setup Your Bibliography}
+
+\boolitem[false]{configurebiblatex}
+
+Sets whether to use and configure the package biblatex within the template.
+
+If this option is set to false, you can setup your bibliography environment by yourself depending on your individual needs or requirements. In this case, you have to include something like \cs{usepackage\{biblatex\}} and \cs{bibliography\{bib-refs\}} in your preamble (i.e., before the \cs{begin\{document\}} statement).
+
 \optitem[bibtex]{bibsys}{\opt{biber},\opt{bibtex}}
 
 Sets whether to use \texttt{biber} or \texttt{bibtex} as citation management tool (engine).
@@ -200,20 +224,35 @@ The default (still) is \texttt{bibtex}.
 Sets the file name of the bibtex file used for the bibliography.
 If this option is not used (defined), the package looks for the default bibliography \texttt{bib-refs.bib}.
 
-\optitem[alphabetic]{bibstyle}{\opt{alphabetic},\opt{numeric},\opt{authoryear}}
+\optitem[alphabetic]{bibstyle}{biblatex style options}
 
-Sets whether to use an \texttt{alphabetic}, a \texttt{numeric}, or an \texttt{authoryear} reference style for the bibliography.
-For further information please check out the biblatex documentation\footnote{\url{http://www.ctan.org/pkg/biblatex}}.
+Sets the bibliography style.
+This is a direct interface to the corresponding style option of the biblatex package.
+For further information please check out the biblatex documentation \url{http://www.ctan.org/pkg/biblatex}.
 The default is \texttt{alphabetic}.
+Two popular options are:
 
-\begin{figure}[th!]
-	\includegraphics[width=\textwidth]{wrapfooter}
-	\caption{The package option \texttt{wrapfooter} can be used to wrap very long chapter titles in the footer.}\label{fig:wrapfooter}
-\end{figure}
+\begin{valuelist}
+\item[alphabetic] (default) Prints labels similar to the traditional BibTeX style \texttt{alpha.bst}, for instance \texttt{[Lan+15]} or \texttt{[LHD17]}
+\item[numeric] Uses numeric labels, such as \texttt{[1]} or \texttt{[37]}
+\end{valuelist}
 
-\boolitem[false]{wrapfooter}
+However, you can also pass non-standard options to make use of other bibliography packages for biblatex.
+For example, by setting the option \texttt{style=ieee} or \texttt{style=ieee-alphabetic} you can use the biblatex-ieee package (see \url{https://ctan.org/pkg/biblatex-ieee}).
 
-Sets whether to wrap the name of a chapter in the footer or not (Figure \ref{fig:wrapfooter}).
+\optitem[nty]{bibsorting}{biblatex sorting options}
+
+Sets the sorting order of the bibliography.
+This is a direct interface to the corresponding option of the biblatex package.
+For further information please check out the biblatex documentation \url{http://www.ctan.org/pkg/biblatex}.
+The default is \texttt{nty}.
+Some popular options include:
+
+\begin{valuelist}
+\item[nty] (default) Sort by name, title, year
+\item[nyt] Sort by name, year, title
+\item[none] No sorting at all, entries are processed in the order of their citation
+\end{valuelist}
 
 \end{optionlist}
 

@@ -1,7 +1,7 @@
 ---
 
 MANIFEST.md
-Copyright 2016 R. Langner
+Copyright 2019 R. Langner
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
@@ -27,6 +27,7 @@ cleanthesis/
 |-- cleanthesis.sty             - the cleanthesis style
 |-- MANIFEST.md                 - this file
 |-- README.md                   - readme file
+|-- VERSION                     - the version of the style
 |-- doc/
     |-- cleanthesis-doc.tex     - documentation source
     |-- cleanthesis-doc.pdf     - generated documentation
