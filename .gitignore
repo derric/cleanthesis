@@ -13,3 +13,5 @@
 *.fdb_latexmk
 *.fls
 *.lol
+example-thesis/cleanthesis.sty
+dist
