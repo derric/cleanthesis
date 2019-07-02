@@ -35,7 +35,7 @@ The idea of providing my customized style for thesis documents passed through my
 
 The [documentation](doc/cleanthesis-doc.pdf) gives an overview of available package options.
 
-Please ask **questions** or start **discussions** about *Clean Thesis* at [Stack Exchange](http://tex.stackexchange.com/questions/tagged/cleanthesis) (tagged [cleanthesis](http://tex.stackexchange.com/questions/tagged/cleanthesis)). GitHub issues are for development purposes, e.g, reporting bugs or requesting new features.
+Please use [Stack Exchange](http://tex.stackexchange.com/questions/tagged/cleanthesis) for questions about **using** *Clean Thesis*; and add the tag **cleanthesis** to your question. GitHub issues are for development purposes, e.g, reporting actual bugs or requesting new features.
 
 ## Contributing
 
