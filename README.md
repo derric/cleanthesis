@@ -27,9 +27,8 @@ The idea of providing my customized style for thesis documents passed through my
 ## Getting started
 
 * Make sure you have an up-to-date TeX distribution
-* Download the latest [release](https://github.com/derric/cleanthesis/releases) or clone the repository with `git clone https://github.com/derric/cleanthesis.git`
-* Check out the included [example thesis](my-thesis.tex)
-* [Read the documentation](doc/cleanthesis-doc.pdf) to learn more about *Clean Thesis* and available package options
+* Download the example-thesis from the [releases page](https://github.com/derric/cleanthesis/releases) (file `cleanthesis-incl-example_v****.zip`)
+* [Check out the documentation](doc/cleanthesis-doc.pdf) to learn more about *Clean Thesis* and available package options
 
 ## Documentation and Support
 
