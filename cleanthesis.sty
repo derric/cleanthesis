@@ -681,40 +681,8 @@
 %    the list of figures, list of tables,
 %    and list of listings
 %
-%
-% The tocloft package enables us to control the typographic design of the
-% table of contents, list of figures and list of tables
-\RequirePackage{tocloft}
-% - fixes wrong fonts in the toc, thanks to magnucki
-\renewcommand{\cftchapfont}{\usefont{T1}{bch}{b}{n}\selectfont}
-\renewcommand{\cfttoctitlefont}{\thesischapterfont}
-\renewcommand{\cftloftitlefont}{\thesischapterfont}
-\renewcommand{\cftlottitlefont}{\thesischapterfont}
-%
-%
-% > adjusts the indention for figure and table entries (lof and lot)
-%   -- \cftsetindents{entry}{indent}{numwidth} sets the entry's indent to
-%      the length indent and its numwidth to the length numwidth
-\cftsetindents{figure}{0em}{3em}
-\cftsetindents{table}{0em}{3em}
-%
-%
-\ifct@cthesis@configurelistings
-	% makes lol to look like lof
-	\makeatletter
-	\begingroup\let\newcounter\@gobble\let\setcounter\@gobbletwo
-		\globaldefs\@ne \let\c@loldepth\@ne
-		\newlistof{listings}{lol}{\lstlistlistingname}
-	\endgroup
-	\let\l@lstlisting\l@listings
-	\AtBeginDocument{\addtocontents{lol}{\protect\addvspace{10\p@}}}
-	\makeatother
-	\renewcommand{\lstlistoflistings}{\listoflistings}
-	\renewcommand\lstlistlistingname{List of Listings}
-	\renewcommand{\cftloltitlefont}{\thesischapterfont}
-	\cftsetindents{listings}{0em}{3em}
-\fi
-%
+% > removes indention for lists of floating environments (e.g., lof and lot)
+\KOMAoption{listof}{flat}
 %
 %
 % **************************************************

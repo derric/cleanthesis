@@ -38,10 +38,15 @@
 % --------------------------
 % rename document parts
 % --------------------------
+
+% > set short label names for floating environments figure and table
 %\renewcaptionname{ngerman}{\figurename}{Abb.}
 %\renewcaptionname{ngerman}{\tablename}{Tab.}
 \renewcaptionname{english}{\figurename}{Fig.}
 \renewcaptionname{english}{\tablename}{Tab.}
+
+% > rename the title of the LOL, i.e. list of listings (default is "Listings")
+\renewcommand*{\lstlistlistingname}{List of Listings}
 
 % --------------------------
 % Front matter
