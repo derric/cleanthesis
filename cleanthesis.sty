@@ -256,6 +256,7 @@
 \RequirePackage{blindtext}		% package for blind text
 \RequirePackage{textcomp}			% different symbols
 \RequirePackage{hyperref} 			% interactive link inside the document
+\RequirePackage{calc}
 \RequirePackage[automark]{scrlayer-scrpage}
 
 %
@@ -427,18 +428,13 @@
 }
 
 %% Redefinition of the sectionmark (used for footer mark on odd (right) pages)
-\newlength{\lensectionnumber}
 \renewcommand{\sectionmark}[1]{%
     \markright{%
         \ctfontfootertext
-        \setlength{\lensectionnumber}{0em}
-        \settowidth{\lensectionnumber}{\textbf{\thesection}\quad}
-        \protect\begin{minipage}[t]{.72\textwidth}%
-            {\ }% bad hack to prevent a wrong baseline for the minipage
-            \protect\raggedleft%
-            \hangindent=\lensectionnumber%
-            {\color{ctcolorfootermark}\textbf{\thesection}}%
-            \quad%
+        \protect\raggedleft%
+        {\color{ctcolorfootermark}\textbf{\thesection}}%
+        \hspace{.25cm}%
+        \protect\begin{minipage}[t]{\minof{\widthof{#1}}{.7\textwidth}}%
             #1%
         \protect\end{minipage}%
     }%
