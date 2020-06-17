@@ -1,7 +1,7 @@
 ---
 
 CHANGELOG.md
-Copyright 2019 R. Langner
+Copyright 2020 R. Langner
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
@@ -26,6 +26,9 @@ The latest version of this file can be found at the master branch of the
 
 ## Latest Dev
 - ...
+
+## v0.4.1
+- Updated copyright year
 
 ## v0.4.0
 - Fixed compatibility to new version of KOMA script
