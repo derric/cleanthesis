@@ -1,0 +1,23 @@
+name: Example thesis
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v1
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v2
+      with:
+        root_file: example-thesis/my-thesis.tex
+    - name: Archive my-thesis
+      uses: actions/upload-artifact@v1
+      with:
+        name: my-thesis.pdf
+        path: my-thesis.pdf
