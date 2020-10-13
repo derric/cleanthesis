@@ -1,4 +1,4 @@
-name: Example thesis
+name: Documentation
 
 on:
   push:
@@ -15,9 +15,10 @@ jobs:
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v2
       with:
-        root_file: my-thesis.tex
-    - name: Archive my-thesis.pdf
+        working_directory: doc
+        root_file: cleanthesis-doc.tex
+    - name: Archive cleanthesis-doc.pdf
       uses: actions/upload-artifact@v2
       with:
-        name: my-thesis.pdf
-        path: my-thesis.pdf
+        name: cleanthesis-doc.pdf
+        path: doc/cleanthesis-doc.pdf
