@@ -28,9 +28,9 @@
 
 ## Documentation and Support
 
-The [documentation](doc/cleanthesis-doc.pdf) gives an overview of available package options.
+You can learn the [basics of LaTeX](https://www.overleaf.com/learn/latex/Creating_a_document_in_LaTeX) on Overleaf.
 
-Please use [Stack Exchange](http://tex.stackexchange.com/questions/tagged/cleanthesis) for questions about **using** *Clean Thesis*; and add the tag **cleanthesis** to your question. GitHub issues are for development purposes, e.g, reporting actual bugs or requesting new features.
+The [Cleanthesis documentation](doc/cleanthesis-doc.pdf) gives an overview of available package options. Please use [Stack Exchange](http://tex.stackexchange.com/questions/tagged/cleanthesis) for questions about **using** *Clean Thesis*; and add the tag **cleanthesis** to your question. GitHub issues are for development purposes, e.g, reporting actual bugs or requesting new features.
 
 ## Going further
 
